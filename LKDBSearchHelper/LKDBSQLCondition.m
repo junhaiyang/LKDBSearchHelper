@@ -30,62 +30,47 @@
 +(LKDBSQLCondition *)condition:(NSString *)name inString:(NSArray *)value{
     NSMutableString *string =[NSMutableString new];
     [string appendString:@" ("];
-    [string appendString:[value componentsJoinedByString:@","]];
+    for (int i = 0; i<value.count; i++) {
+        NSString *_v = [NSString stringWithFormat:@"\'%@\'",[value objectAtIndex:i]];
+        [string appendString:_v];
+        if(i!=(value.count-1)){
+            [string appendString:@","];
+        }
+    }
     [string appendString:@") "];
-    
     
     return [LKDBSQLCondition condition:name operation:LKDB_OPERATION_IN value:string];
     
-} 
-
-
-+(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueString:(NSString *)value{
+}
++(LKDBSQLCondition *)condition:(NSString *)name inInt:(NSArray *)value{
     
+    NSMutableString *string =[NSMutableString new];
+    [string appendString:@" ("];
+    for (int i = 0; i<value.count; i++) {
+        NSString *_v = [NSString stringWithFormat:@"%lld",[[value objectAtIndex:i] longLongValue]];
+        [string appendString:_v];
+        if(i!=(value.count-1)){
+            [string appendString:@","];
+        }
+    }
+    [string appendString:@") "];
+    
+    return [LKDBSQLCondition condition:name operation:LKDB_OPERATION_IN value:string];
+    
+}
+
+
++(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueString:(NSString *)value{ 
     return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"\'%@\'",value]];
 }
-+(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueInt:(int)value{
-    return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"%d",value]];
++(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueInt:(int64_t)value{
+    return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"%lld",value]];
 }
 +(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueFloat:(float)value{
     return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"%f",value]];
 }
-+(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueDouble:(double)value{
-    return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"%f",value]];
-}
-+(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueLong:(long)value{
-    return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"%ld",value]];
-}
-+(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueLongLong:(long long)value{
-    return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"%lld",value]];
-}
 
-
-+(LKDBSQLCondition *)condition:(NSString *)name equalString:(id)value{
-    
-    LKDBSQLCondition *condation = [LKDBSQLCondition new];
-    condation.name = name;
-    condation.operation = @"=";
-    condation.value = [NSString stringWithFormat:@"\'%@\'",value];
-    
-    return condation;
-}
-+(LKDBSQLCondition *)condition:(NSString *)name equalInt:(int)value{
-    
-    return [LKDBSQLCondition condition:name equalString:[NSString stringWithFormat:@"%d",value]];
-}
-
-+(LKDBSQLCondition *)condition:(NSString *)name equalFloat:(float)value{
-    return [LKDBSQLCondition condition:name equalString:[NSString stringWithFormat:@"%f",value]];
-}
-+(LKDBSQLCondition *)condition:(NSString *)name equalDouble:(double)value{
-    return [LKDBSQLCondition condition:name equalString:[NSString stringWithFormat:@"%f",value]];
-}
-+(LKDBSQLCondition *)condition:(NSString *)name equalLong:(long)value{
-    return [LKDBSQLCondition condition:name equalString:[NSString stringWithFormat:@"%ld",value]];
-}
-+(LKDBSQLCondition *)condition:(NSString *)name equalLongLong:(long long)value{
-    return [LKDBSQLCondition condition:name equalString:[NSString stringWithFormat:@"%lld",value]];
-}
+ 
 
 -(void)appendConditionToQuery:(LKDBQueryBuilder *)queryBuilder{
     [[[[queryBuilder append:name] append:operation] append:value] appendSpace];

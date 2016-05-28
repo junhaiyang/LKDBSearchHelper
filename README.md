@@ -87,20 +87,14 @@
 	//条件等于
 	LKDB_Equal_String(name,value)   
  	LKDB_Equal_Int(name,value)     
-	LKDB_Equal_Float(name,value)     
-	LKDB_Equal_Double(name,value)      
-	LKDB_Equal_Long(name,value)          
-	LKDB_Equal_LongLong(name,value)    
+	LKDB_Equal_Float(name,value)        
 
 
 
 	//条件不等于
 	LKDB_NotEqual_String(name,value)    
 	LKDB_NotEqual_Int(name,value)        
-	LKDB_NotEqual_Float(name,value)   
-	LKDB_NotEqual_Double(name,value)    
-	LKDB_NotEqual_Long(name,value)    
-	LKDB_NotEqual_LongLong(name,value)    
+	LKDB_NotEqual_Float(name,value)     
 
 
 
@@ -112,39 +106,29 @@
 	//条件小于
 	LKDB_LessThan_String(name,value)   
 	LKDB_LessThan_Int(name,value)        
-	LKDB_LessThan_Float(name,value)   
-	LKDB_LessThan_Double(name,value)    
-	LKDB_LessThan_Long(name,value)   
-	LKDB_LessThan_LongLong(name,value)  
+	LKDB_LessThan_Float(name,value)    
 
 	//条件大于
 	LKDB_GreaterThan_String(name,value)        
 	LKDB_GreaterThan_Int(name,value)      
-	LKDB_GreaterThan_Float(name,value)      
-	LKDB_GreaterThan_Double(name,value)   
-	LKDB_GreaterThan_Long(name,value)  
-	LKDB_GreaterThan_LongLong(name,value)   
+	LKDB_GreaterThan_Float(name,value)       
 
 	//条件小于等于
 	LKDB_LessAndEqualThan_String(name,value) 
 	LKDB_LessAndEqualThan_Int(name,value)            
-	LKDB_LessAndEqualThan_Float(name,value)   
-	LKDB_LessAndEqualThan_Double(name,value)  
-	LKDB_LessAndEqualThan_Long(name,value)         
-	LKDB_LessAndEqualThan_LongLong(name,value)    
+	LKDB_LessAndEqualThan_Float(name,value)    
 
 	//条件大于等于
 	LKDB_GreaterAndEqualThan_String(name,value)             
 	LKDB_GreaterAndEqualThan_Int(name,value)           
-	LKDB_GreaterAndEqualThan_Float(name,value)           
-	LKDB_GreaterAndEqualThan_Double(name,value)            
-	LKDB_GreaterAndEqualThan_Long(name,value)             
-	LKDB_GreaterAndEqualThan_LongLong(name,value)     
+	LKDB_GreaterAndEqualThan_Float(name,value)         
+	                  
+
+	//IN条件 
+	LKDB_IN_String(name,values)    
+	LKDB_IN_Int(name,values)   
 	
 	
 
 	//基本条件
-	LKDB_Condition(name,operation,value)                     
-
-	//IN条件 
-	LKDB_IN_String(name,values)         
+	LKDB_Condition(name,operation,value)         
