@@ -1,11 +1,4 @@
-//
-//  LKDBSelect.m
-//  wkt_app_ios
-//
-//  Created by junhai on 16/5/28.
-//  Copyright © 2016年 junhai. All rights reserved.
-//
-
+ 
 #import "LKDBSelect.h"
 #import "LKDBConditionGroup.h"
 #import "LKDBQueryBuilder.h"
