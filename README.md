@@ -98,7 +98,7 @@
 
 
 
-	//字符串不等于
+	//字符串 IS NOT
 	LKDB_IsNot_String(name,value)     
 	//字符串LIKE
 	LKDB_LIKE_String(name,value)         
