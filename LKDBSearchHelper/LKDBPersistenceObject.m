@@ -214,11 +214,11 @@
 }
 
 + (id)loadByRowid:(NSInteger)_rowid{
-    return [[[[LKDBSQLite select] from:[self class]] where:LKDB_Equal_Long(@"rowid", (long)_rowid)] querySingle];
+    return [[[[LKDBSQLite select] from:[self class]] where:LKDB_Equal_Int(@"rowid", _rowid)] querySingle];
 }
 
 - (id)reload{
-    return [[[[LKDBSQLite select] from:[self class]] where:LKDB_Equal_Long(@"rowid", (long)self.rowid)] querySingle];
+    return [[[[LKDBSQLite select] from:[self class]] where:LKDB_Equal_Int(@"rowid", self.rowid)] querySingle];
 }
 
 + (NSArray *)listAll{
