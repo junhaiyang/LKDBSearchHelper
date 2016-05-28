@@ -1,7 +1,7 @@
 # LKDBSearchHelper
 
-#####遗留问题
-* 暂时不支持 have ， join ，in 语法
+#####说明
+* 鉴于移动端不应该存在过于复杂的查询 暂时不支持 have ， join  语法
 
 
 
@@ -143,4 +143,12 @@
 	LKDB_GreaterAndEqualThan_Float(name,value)           
 	LKDB_GreaterAndEqualThan_Double(name,value)            
 	LKDB_GreaterAndEqualThan_Long(name,value)             
-	LKDB_GreaterAndEqualThan_LongLong(name,value)            
+	LKDB_GreaterAndEqualThan_LongLong(name,value)     
+	
+	
+
+	//基本条件
+	LKDB_Condition(name,operation,value)                     
+
+	//IN条件 
+	LKDB_IN_String(name,values)         

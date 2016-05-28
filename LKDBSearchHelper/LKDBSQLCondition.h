@@ -13,6 +13,7 @@
 #define LKDB_OPERATION_NotEqual @"<>"
 #define LKDB_OPERATION_IsNot @"IS NOT"
 #define LKDB_OPERATION_LIKE @"LIKE"
+#define LKDB_OPERATION_IN @"IN"
 
 #define LKDB_OPERATION_LessThan @"<"
 #define LKDB_OPERATION_GreaterThan @">"
@@ -81,15 +82,17 @@
 
 
 //基本条件
-#define LKDB_Condition(name,operation,value)    [LKDBSQLCondition condition:name operation:operation value:value]
+#define LKDB_Condition(name,operation,value)                    [LKDBSQLCondition condition:name operation:operation value:value]
 
-//IN条件 待完善
-#define LKDB_IN(name,values)
+//IN条件 
+#define LKDB_IN_String(name,values)                             [LKDBSQLCondition condition:name  inString:value]
  
 
 @interface LKDBSQLCondition : NSObject
 
 +(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation value:(NSString *)value;
+
++(LKDBSQLCondition *)condition:(NSString *)name inString:(NSArray *)value;
 
 +(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueString:(NSString *)value;
 +(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueInt:(int)value;

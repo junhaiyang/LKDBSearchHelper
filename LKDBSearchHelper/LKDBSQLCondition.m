@@ -33,6 +33,19 @@
     condation.value = value;
     return condation;
 }
+
++(LKDBSQLCondition *)condition:(NSString *)name inString:(NSArray *)value{
+    NSMutableString *string =[NSMutableString new];
+    [string appendString:@" ("];
+    [string appendString:[value componentsJoinedByString:@","]];
+    [string appendString:@") "];
+    
+    
+    return [LKDBSQLCondition condition:name operation:LKDB_OPERATION_IN value:string];
+    
+} 
+
+
 +(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation valueString:(NSString *)value{
     
     return [LKDBSQLCondition condition:name operation:operation value:[NSString stringWithFormat:@"\'%@\'",value]];
