@@ -10,9 +10,7 @@
 
 + (id)loadByRowid:(NSInteger)_rowid;
 
-- (id)reload;
-
-- (NSArray *)execQuery:(NSString *)sql;
+- (id)reload; 
 
 + (NSArray *)listAll;
 
