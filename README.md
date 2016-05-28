@@ -1,5 +1,7 @@
 # LKDBSearchHelper
 
+#####遗留问题
+* 暂时不支持 have ， join ，in 语法
 
 
 
