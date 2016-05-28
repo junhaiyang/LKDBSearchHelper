@@ -78,7 +78,7 @@
         
         [[LKDBSQLite select] from:[TestObj class]] .........
         
-        return YES;
+        return YES; //YES 为提交事务，NO 取消事务
     }];
     
     
