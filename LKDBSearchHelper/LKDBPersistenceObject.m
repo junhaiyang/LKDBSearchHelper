@@ -139,7 +139,7 @@
 }
 
 
-+ (NSMutableArray *)validate:(DYPersistenceObject *)object
++ (NSMutableArray *)validate:(LKDBPersistenceObject *)object
 {
     
     LKModelInfos* infos = [[object class] getModelInfos];
@@ -222,19 +222,19 @@
 }
 
 + (NSArray *)listAll{
-    return [[self class] searchWithWhere:nil];
+    return [[[LKDBSQLite select] from:[self class]] queryList];
 }
 
 + (int)count{
-    return  [[self class] rowCount];
+    return  [[[LKDBSQLite select] from:[self class]] queryCount];
 }
 
 - (int)save{
-   return  [LKDBSQLite insert:self];
+    return  [LKDBSQLite insert:self];
 }
 
 - (int)update{
-   return  [LKDBSQLite update:self];
+    return  [LKDBSQLite update:self];
 }
 
 - (void)delete{
