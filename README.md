@@ -49,18 +49,14 @@
     //生成一个包含条件 (......) 格式
     LKDBConditionGroup *innerConditionGroup =[select innerConditionGroup];
     
-    [innerConditionGroup where:LKDB_Equal_Int(@"key", 3322)];
-    [innerConditionGroup or:LKDB_Equal_Int(@"key", 8899)];
+    [[innerConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+      or:LKDB_Equal_Int(@"key", 8899)]];
     
     NSLog(@"%@",[select getQuery]);
-    //最小结果
-    [select limit:5];
+    //最小结果 结果偏移
+    [[select offset:5] limit:5];
     
-    NSLog(@"%@",[select getQuery]);
-    //结果偏移
-    [select offset:5];
-    
-    NSLog(@"%@",[select getQuery]);
+    NSLog(@"%@",[select getQuery]); 
     
      //查询总数
     int count =[select queryCount];
