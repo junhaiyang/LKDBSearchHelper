@@ -35,22 +35,22 @@
 
     //生成查询，基本定义了几种类型 ，
    	LKDBSelect *select = [[[[LKDBSQLite select] from:[TestObj class]]
-      where:LKDB_NotEqualString(@"name",@"11122")]
-    and:LKDB_NotEqualInt(@"key", 123)]
+      where:LKDB_NotEqual_String(@"name",@"11122")]
+    and:LKDB_NotEqual_Int(@"key", 123)]
                          ;
     
     NSLog(@"%@",[select getQuery]);
     
     
-    [select or:LKDB_EqualString(@"name", @"ssss")];
+    [select or:LKDB_Equal_String(@"name", @"ssss")];
     
     NSLog(@"%@",[select getQuery]);
     
     //生成一个包含条件 (......) 格式
     LKDBConditionGroup *innerConditionGroup =[select innerConditionGroup];
     
-    [innerConditionGroup where:LKDB_EqualInt(@"key", 3322)];
-    [innerConditionGroup or:LKDB_EqualInt(@"key", 8899)];
+    [innerConditionGroup where:LKDB_Equal_Int(@"key", 3322)];
+    [innerConditionGroup or:LKDB_Equal_Int(@"key", 8899)];
     
     NSLog(@"%@",[select getQuery]);
     //最小结果
