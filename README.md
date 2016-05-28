@@ -89,58 +89,58 @@
 	//基本条件语句
 
 	//条件等于
-	LKDB_EqualString(name,value)   
- 	LKDB_EqualInt(name,value)     
-	LKDB_EqualFloat(name,value)     
-	LKDB_EqualDouble(name,value)      
-	LKDB_EqualLong(name,value)          
-	LKDB_EqualLongLong(name,value)    
+	LKDB_Equal_String(name,value)   
+ 	LKDB_Equal_Int(name,value)     
+	LKDB_Equal_Float(name,value)     
+	LKDB_Equal_Double(name,value)      
+	LKDB_Equal_Long(name,value)          
+	LKDB_Equal_LongLong(name,value)    
 
 
 
 	//条件不等于
-	LKDB_NotEqualString(name,value)    
-	LKDB_NotEqualInt(name,value)        
-	LKDB_NotEqualFloat(name,value)   
-	LKDB_NotEqualDouble(name,value)    
-	LKDB_NotEqualLong(name,value)    
-	LKDB_NotEqualLongLong(name,value)    
+	LKDB_NotEqual_String(name,value)    
+	LKDB_NotEqual_Int(name,value)        
+	LKDB_NotEqual_Float(name,value)   
+	LKDB_NotEqual_Double(name,value)    
+	LKDB_NotEqual_Long(name,value)    
+	LKDB_NotEqual_LongLong(name,value)    
 
 
 
 	//字符串不等于
-	LKDB_IsNotString(name,value)     
+	LKDB_IsNot_String(name,value)     
 	//字符串LIKE
-	LKDB_LIKEString(name,value)         
+	LKDB_LIKE_String(name,value)         
 
 	//条件小于
-	LKDB_LessThanString(name,value)   
-	LKDB_LessThanInt(name,value)        
-	LKDB_LessThanFloat(name,value)   
-	LKDB_LessThanDouble(name,value)    
-	LKDB_LessThanLong(name,value)   
-	LKDB_LessThanLongLong(name,value)  
+	LKDB_LessThan_String(name,value)   
+	LKDB_LessThan_Int(name,value)        
+	LKDB_LessThan_Float(name,value)   
+	LKDB_LessThan_Double(name,value)    
+	LKDB_LessThan_Long(name,value)   
+	LKDB_LessThan_LongLong(name,value)  
 
 	//条件大于
-	LKDB_GreaterThanString(name,value)        
-	LKDB_GreaterThanInt(name,value)      
-	LKDB_GreaterThanFloat(name,value)      
-	LKDB_GreaterThanDouble(name,value)   
-	LKDB_GreaterThanLong(name,value)  
-	LKDB_GreaterThanLongLong(name,value)   
+	LKDB_GreaterThan_String(name,value)        
+	LKDB_GreaterThan_Int(name,value)      
+	LKDB_GreaterThan_Float(name,value)      
+	LKDB_GreaterThan_Double(name,value)   
+	LKDB_GreaterThan_Long(name,value)  
+	LKDB_GreaterThan_LongLong(name,value)   
 
 	//条件小于等于
-	LKDB_LessAndEqualThanString(name,value) 
-	LKDB_LessAndEqualThanInt(name,value)            
-	LKDB_LessAndEqualThanFloat(name,value)   
-	LKDB_LessAndEqualThanDouble(name,value)  
-	LKDB_LessAndEqualThanLong(name,value)         
-	LKDB_LessAndEqualThanLongLong(name,value)    
+	LKDB_LessAndEqualThan_String(name,value) 
+	LKDB_LessAndEqualThan_Int(name,value)            
+	LKDB_LessAndEqualThan_Float(name,value)   
+	LKDB_LessAndEqualThan_Double(name,value)  
+	LKDB_LessAndEqualThan_Long(name,value)         
+	LKDB_LessAndEqualThan_LongLong(name,value)    
 
 	//条件大于等于
-	LKDB_GreaterAndEqualThanString(name,value)             
-	LKDB_GreaterAndEqualThanInt(name,value)           
-	LKDB_GreaterAndEqualThanFloat(name,value)           
-	LKDB_GreaterAndEqualThanDouble(name,value)            
-	LKDB_GreaterAndEqualThanLong(name,value)             
-	LKDB_GreaterAndEqualThanLongLong(name,value)            
+	LKDB_GreaterAndEqualThan_String(name,value)             
+	LKDB_GreaterAndEqualThan_Int(name,value)           
+	LKDB_GreaterAndEqualThan_Float(name,value)           
+	LKDB_GreaterAndEqualThan_Double(name,value)            
+	LKDB_GreaterAndEqualThan_Long(name,value)             
+	LKDB_GreaterAndEqualThan_LongLong(name,value)            
