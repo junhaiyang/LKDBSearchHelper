@@ -7,7 +7,7 @@
 
 
 +(LKDBSelect *)select{
-    return [LKDBSelect new];
+    return [[LKDBSelect alloc] initWithHelper:[LKDBHelper getUsingLKDBHelper]];
 }
 + (void)executeForTransaction:(BOOL (^)(LKDBHelper* helper))block{
     [[LKDBHelper getUsingLKDBHelper]  executeForTransaction:block];
