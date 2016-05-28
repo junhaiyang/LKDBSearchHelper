@@ -7,6 +7,20 @@
 
 #import "LKDBHelper.h"
 
+
+@interface LKDBHelper(LKDBSelect)
+ 
+- (NSMutableArray *)executeQuery:(NSString *)sql toClass:(Class)modelClass;
+
+
+- (NSMutableArray *)executeQuery:(NSString *)sql;
+
+
+- (NSMutableArray *)executeResult:(FMResultSet *)set Class:(Class)modelClass tableName:(NSString *)tableName;
+
+
+@end
+
 @interface LKDBSelect : NSObject
 
 -(instancetype)initWithHelper:(LKDBHelper *)helper;
