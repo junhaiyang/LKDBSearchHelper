@@ -1,4 +1,4 @@
- 
+
 
 #import "LKDBSQLite.h"
 #import "LKDBHelper.h"
@@ -9,8 +9,10 @@
 +(LKDBSelect *)select{
     return [[LKDBSelect alloc] initWithHelper:[LKDBHelper getUsingLKDBHelper]];
 }
-+ (void)executeForTransaction:(BOOL (^)(LKDBHelper* helper))block{
-    [[LKDBHelper getUsingLKDBHelper]  executeForTransaction:block];
++ (void)executeForTransaction:(BOOL (^)(void))block{
+    [[LKDBHelper getUsingLKDBHelper] executeForTransaction:^BOOL(LKDBHelper *helper) {
+        return block();
+    }]; 
 }
 
 +(int)update:(LKDBPersistenceObject *)object{

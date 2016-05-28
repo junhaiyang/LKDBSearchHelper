@@ -6,7 +6,7 @@
 @interface LKDBSQLite : NSObject
 
 //事务管理
-+ (void)executeForTransaction:(BOOL (^)(LKDBHelper* helper))block;
++ (void)executeForTransaction:(BOOL (^)(void))block;
  
 +(LKDBSelect *)select;
 
@@ -17,16 +17,6 @@
 +(void)delete:(LKDBPersistenceObject *)object;
 
 +(void)dropTable:(Class)clazz;
-
-
-+(LKDBSelect *)select:(LKDBHelper *)helper;
-
-+(int)update:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper;
-
-+(int)insert:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper;
-
-+(void)delete:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper;
-
-+(void)dropTable:(Class)clazz helper:(LKDBHelper *)helper;
+ 
  
 @end

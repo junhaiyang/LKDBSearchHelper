@@ -74,9 +74,9 @@
     
     
      //事物操作
-    [LKDBSQLite executeForTransaction:^BOOL(LKDBHelper *helper) {
+    [LKDBSQLite executeForTransaction:^BOOL(void) {
         
-        [[LKDBSQLite select:helper] from:[TestObj class]] .........
+        [[LKDBSQLite select] from:[TestObj class]] .........
         
         return YES;
     }];
