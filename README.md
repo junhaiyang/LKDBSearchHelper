@@ -1,10 +1,17 @@
 # LKDBSearchHelper
 
+
+
 #####说明
 * 鉴于移动端不应该存在过于复杂的查询 暂时不支持 have ， join  语法
 
 
 
+#####引用
+
+	source 'https://github.com/junhaiyang/Specs.git'
+	 
+    pod 'LKDBSearchHelper', '~> 1.0'
 
 #####表例子
 
