@@ -149,12 +149,12 @@
 }
  
 
--(LKDBConditionGroup *)andConditionGroup{
-    return [conditionGroup createInnerAndConditionGroup];
+-(LKDBConditionGroup *)innerAndConditionGroup{
+    return [conditionGroup innerAndConditionGroup];
 }
 
 -(LKDBConditionGroup *)orConditionGroup{
-    return [conditionGroup createInnerOrConditionGroup];
+    return [conditionGroup innerOrConditionGroup];
 }
 
 

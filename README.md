@@ -59,17 +59,25 @@
                                
     
     //生成一个AND包含条件: AND ( ...... ) 格式
-    LKDBConditionGroup *andConditionGroup =[select andConditionGroup];
+    LKDBConditionGroup *andConditionGroup =[select innerAndConditionGroup];
     
     //  AND ( key=3322 OR key=8899 ) 
-    [[andConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+    [[innerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
       or:LKDB_Equal_Int(@"key", 8899)]];
       
     //再生成一个 OR 包含条件: OR ( ...... ) 格式
-    LKDBConditionGroup *orConditionGroup =[select orConditionGroup];
+    LKDBConditionGroup *orConditionGroup =[select innerOrConditionGroup];
     
     //  OR ( key=3322 OR key=8899 ) 
-    [[orConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+    [[innerOrConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+      or:LKDB_Equal_Int(@"key", 8899)]];
+      
+      
+    //在包含条件里面再生成一个 OR 包含条件: OR ( ...... ) 格式
+    LKDBConditionGroup *innerOrConditionGroup2 =[innerOrConditionGroup innerOrConditionGroup];
+    
+    //  OR ( key=3322 OR key=8899 ) 
+    [[innerOrConditionGroup2 where:LKDB_Equal_Int(@"key", 3322)]
       or:LKDB_Equal_Int(@"key", 8899)]];
     
     NSLog(@"%@",[select getQuery]);
