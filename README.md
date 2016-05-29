@@ -9,7 +9,7 @@
 #####表例子
 
 		
-	#import "LKDBPersistenceObject.h"
+	#import "LKDBSearchHelper.h"
 	
 	@interface TestObj:LKDBPersistenceObject
 	
