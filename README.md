@@ -78,6 +78,19 @@
     }];
     
     
+    
+    //保存
+     [obj saveToDB];
+     
+    //更新
+     [obj updateToDB];
+     
+    //删除
+     [obj deleteToDB];
+    
+    //删除表
+     [TestObj dropToDB];
+    
 #####条件说明
 
 		
