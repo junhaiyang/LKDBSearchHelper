@@ -152,4 +152,4 @@
 	
 
 	//基本条件
-	LKDB_Condition(name,operation,value)    //value 是String ，如果是处理字符串 得加上单引号和转移,数字类型就直接生成String 就可以    
+	LKDB_Condition(name,operation,value)    //value 是String ，如果是处理字符串 得加上单引号和转义,数字类型就直接生成String 就可以    
