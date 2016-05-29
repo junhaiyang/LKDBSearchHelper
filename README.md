@@ -57,12 +57,14 @@
     //生成一个AND包含条件: AND ( ...... ) 格式
     LKDBConditionGroup *createInnerAndConditionGroup =[select createInnerAndConditionGroup];
     
+    AND ( key=3322 OR key=8899 ) 
     [[createInnerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
       or:LKDB_Equal_Int(@"key", 8899)]];
       
     //再生成一个 OR 包含条件: OR ( ...... ) 格式
     LKDBConditionGroup *createInnerOrConditionGroup =[select createInnerOrConditionGroup];
     
+    OR ( key=3322 OR key=8899 ) 
     [[createInnerOrConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
       or:LKDB_Equal_Int(@"key", 8899)]];
     
