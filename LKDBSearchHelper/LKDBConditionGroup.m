@@ -29,7 +29,8 @@
         separator =@"AND";
     }
     return self;
-}
+} 
+
 -(LKDBConditionGroup *)createInnerAndConditionGroup{
     LKDBConditionGroup *conditionGroup =[LKDBConditionGroup clause];
     [self setPreviousSeparator:@"AND"];

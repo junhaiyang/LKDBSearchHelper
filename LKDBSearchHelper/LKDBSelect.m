@@ -147,12 +147,13 @@
     [conditionGroup orAll:sqlConditions];
     return self;
 }
+ 
 
--(LKDBConditionGroup *)createInnerAndConditionGroup{
+-(LKDBConditionGroup *)andConditionGroup{
     return [conditionGroup createInnerAndConditionGroup];
 }
 
--(LKDBConditionGroup *)createInnerOrConditionGroup{
+-(LKDBConditionGroup *)orConditionGroup{
     return [conditionGroup createInnerOrConditionGroup];
 }
 

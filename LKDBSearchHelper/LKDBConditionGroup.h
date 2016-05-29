@@ -13,6 +13,7 @@
 -(instancetype)setAllCommaSeparated:(BOOL)_allCommaSeparated;
 -(void)setPreviousSeparator:(NSString *)_separator;
 
+-(LKDBConditionGroup *)createInnerConditionGroup;
 
 -(LKDBConditionGroup *)createInnerAndConditionGroup;
 
