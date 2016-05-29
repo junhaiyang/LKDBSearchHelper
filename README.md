@@ -54,10 +54,16 @@
     
     NSLog(@"%@",[select getQuery]);
     
-    //生成一个包含条件 (......) 格式
-    LKDBConditionGroup *innerConditionGroup =[select innerConditionGroup];
+    //生成一个AND包含条件: AND ( ...... ) 格式
+    LKDBConditionGroup *createInnerAndConditionGroup =[select createInnerAndConditionGroup];
     
-    [[innerConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+    [[createInnerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+      or:LKDB_Equal_Int(@"key", 8899)]];
+      
+    //再生成一个 OR 包含条件: OR ( ...... ) 格式
+    LKDBConditionGroup *createInnerOrConditionGroup =[select createInnerOrConditionGroup];
+    
+    [[createInnerOrConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
       or:LKDB_Equal_Int(@"key", 8899)]];
     
     NSLog(@"%@",[select getQuery]);

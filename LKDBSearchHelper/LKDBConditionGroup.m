@@ -30,9 +30,16 @@
     }
     return self;
 }
--(LKDBConditionGroup *)createInnerConditionGroup{
+-(LKDBConditionGroup *)createInnerAndConditionGroup{
     LKDBConditionGroup *conditionGroup =[LKDBConditionGroup clause];
     [self setPreviousSeparator:@"AND"];
+    [conditionsList addObject:conditionGroup];
+    isChanged =true;
+    return conditionGroup;
+}
+-(LKDBConditionGroup *)createInnerOrConditionGroup{
+    LKDBConditionGroup *conditionGroup =[LKDBConditionGroup clause];
+    [self setPreviousSeparator:@"OR"];
     [conditionsList addObject:conditionGroup];
     isChanged =true;
     return conditionGroup;

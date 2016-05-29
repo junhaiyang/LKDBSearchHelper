@@ -147,10 +147,14 @@
     [conditionGroup orAll:sqlConditions];
     return self;
 }
--(LKDBConditionGroup *)innerConditionGroup{
-    return [conditionGroup createInnerConditionGroup];
+
+-(LKDBConditionGroup *)createInnerAndConditionGroup{
+    return [conditionGroup createInnerAndConditionGroup];
 }
 
+-(LKDBConditionGroup *)createInnerOrConditionGroup{
+    return [conditionGroup createInnerOrConditionGroup];
+}
 
 
 -(instancetype)orderBy:(NSArray *)orderBys{

@@ -16,8 +16,12 @@
 -(instancetype)and:(LKDBSQLCondition *)sqlCondition;
 -(instancetype)or:(LKDBSQLCondition *)sqlCondition; 
 
-//查询条件包含括号,会构造一个新的 LKDBConditionGroup,小括号包含
--(LKDBConditionGroup *)innerConditionGroup;
+//查询条件包含括号,会构造一个新的 LKDBConditionGroup,小括号包含  AND ( ... )
+-(LKDBConditionGroup *)createInnerAndConditionGroup;
+
+
+//查询条件包含括号,会构造一个新的 LKDBConditionGroup,小括号包含  OR ( ... )
+-(LKDBConditionGroup *)createInnerOrConditionGroup;
  
 -(instancetype)orderBy:(NSArray *)orderBys;
 -(instancetype)groupBy:(NSArray *)groupBys;

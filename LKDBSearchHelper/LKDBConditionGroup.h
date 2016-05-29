@@ -14,7 +14,9 @@
 -(void)setPreviousSeparator:(NSString *)_separator;
 
 
--(LKDBConditionGroup *)createInnerConditionGroup;
+-(LKDBConditionGroup *)createInnerAndConditionGroup;
+
+-(LKDBConditionGroup *)createInnerOrConditionGroup;
 
 -(instancetype)operator:(NSString *)_separator sqlCondition:(LKDBSQLCondition *)sqlCondition;
 
