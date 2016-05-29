@@ -239,7 +239,7 @@
 - (void)deleteToDB{
     [LKDBSQLite delete:self];
 }
-- (void)dropToDB{
++ (void)dropToDB{
     [LKDBSQLite dropTable:[self class]];
 }
 @end
