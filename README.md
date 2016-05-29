@@ -9,6 +9,7 @@
 
 #####引用
 
+	source 'https://github.com/CocoaPods/Specs.git'
 	source 'https://github.com/junhaiyang/Specs.git'
 	 
     pod 'LKDBSearchHelper', '~> 1.0'
