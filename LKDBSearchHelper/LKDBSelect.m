@@ -3,6 +3,22 @@
 #import "LKDBConditionGroup.h"
 #import "LKDBQueryBuilder.h"
 
+#import "LKDBHelper.h"
+
+
+@interface LKDBHelper(LKDBSelect)
+
+- (NSMutableArray *)executeQuery:(NSString *)sql toClass:(Class)modelClass;
+
+
+- (NSMutableArray *)executeQuery:(NSString *)sql;
+
+
+- (NSMutableArray *)executeResult:(FMResultSet *)set Class:(Class)modelClass tableName:(NSString *)tableName;
+
+
+@end
+
 @interface LKDBHelper(LKDBSelect)
  
 
@@ -87,7 +103,7 @@
 @end
 
 @implementation LKDBSelect
--(instancetype)initWithHelper:(LKDBHelper *)_helper{
+-(instancetype)init{
     
     self = [super init];
     if (self) {
@@ -98,7 +114,7 @@
         
         limit = -1;
         offset = -1;
-        helper = _helper;
+        helper = [LKDBHelper getUsingLKDBHelper];
         
     }
     return self;
@@ -159,9 +175,9 @@
     
     NSMutableString *sql =[NSMutableString new];
     if(selectCount){
-        [sql appendString:@"select count(*) as count  from "];
+        [sql appendString:@"SELECT COUNT(*) as count  FROM "];
     }else{
-        [sql appendString:@"select *  from "];
+        [sql appendString:@"SELECT *  FROM "];
     }
     
     [sql appendString:NSStringFromClass(_fromtable)];
@@ -192,9 +208,9 @@
     }
     
     if(offset!=-1&&limit!=-1){
-        [sql appendFormat:@" limit %d,%d",offset,limit];
+        [sql appendFormat:@" LIMIT %d,%d",offset,limit];
     }else if (limit!=-1){
-        [sql appendFormat:@" limit %d",limit];
+        [sql appendFormat:@" LIMIT %d",limit];
     }
     NSLog(@"sql:%@",sql);
     return sql;

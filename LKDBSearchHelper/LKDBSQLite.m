@@ -7,7 +7,7 @@
 
 
 +(LKDBSelect *)select{
-    return [[LKDBSelect alloc] initWithHelper:[LKDBHelper getUsingLKDBHelper]];
+    return [[LKDBSelect alloc] init];
 }
 + (void)executeForTransaction:(BOOL (^)(void))block{
     [[LKDBHelper getUsingLKDBHelper] executeForTransaction:^BOOL(LKDBHelper *helper) {
@@ -30,10 +30,7 @@
 +(void)dropTable:(Class)clazz{
     [LKDBSQLite dropTable:clazz helper:[LKDBHelper getUsingLKDBHelper]];
 }
-
-+(LKDBSelect *)select:(LKDBHelper *)helper{
-    return [[LKDBSelect alloc] initWithHelper:helper];
-}
+ 
 
 +(int)update:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper{
     [helper updateToDB:object where:@{@"rowid":[NSNumber numberWithInteger:object.rowid]}];

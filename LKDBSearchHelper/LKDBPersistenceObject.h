@@ -1,7 +1,6 @@
  
 
 #import <Foundation/Foundation.h>
-#import "LKDBHelper.h"
 
 @interface LKDBPersistenceObject : NSObject
 
@@ -16,11 +15,11 @@
 
 + (int)count;
 
-- (int)save;
+- (int)saveToDB;
 
-- (int)update;
+- (int)updateToDB;
 
-- (void)delete;
-+ (void)drop;
+- (void)deleteToDB;
++ (void)dropToDB;
 
 @end

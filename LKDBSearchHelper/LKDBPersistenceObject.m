@@ -3,20 +3,19 @@
 #import "LKDBPersistenceObject.h"
 #import <objc/runtime.h>
 #import "LKDBSQLite.h"
+#import "LKDBHelper.h"
 
 @implementation LKDBPersistenceObject
-
-+(void)load{
+ 
++(void)initialize
+{
 #if DEBUG
-    NSArray *validateError = [[self class] validateFields:[self class]];;
+    NSArray *validateError = [[self class] validateFields:[self class]];
     if (validateError != nil) {
         NSException *e = [[NSException alloc] initWithName:@"class define error!" reason:[validateError componentsJoinedByString:@"\n"] userInfo:nil];
         @throw e;
     }
 #endif
-}
-+(void)initialize
-{
     //remove unwant property
     for (NSString *property in [[self class] transients]) {
         [self removePropertyWithColumnName:property];
@@ -229,18 +228,18 @@
     return  [[[LKDBSQLite select] from:[self class]] queryCount];
 }
 
-- (int)save{
+- (int)saveToDB{
     return  [LKDBSQLite insert:self];
 }
 
-- (int)update{
+- (int)updateToDB{
     return  [LKDBSQLite update:self];
 }
 
-- (void)delete{
+- (void)deleteToDB{
     [LKDBSQLite delete:self];
 }
-- (void)drop{
+- (void)dropToDB{
     [LKDBSQLite dropTable:[self class]];
 }
 @end
