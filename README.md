@@ -28,7 +28,7 @@
 	@end
 	
 	
-	@implementation LKDBSQLCondition
+	@implementation TestObj
 	
 	
 	+ (NSArray *)transients{
