@@ -70,9 +70,11 @@
 }
 
 -(instancetype)operator:(NSString *)_separator sqlCondition:(LKDBSQLCondition *)sqlCondition{
-    [self setPreviousSeparator:_separator];
-    [conditionsList addObject:sqlCondition];
-    isChanged =true;
+    if(sqlCondition){
+        [self setPreviousSeparator:_separator];
+        [conditionsList addObject:sqlCondition];
+        isChanged =true;
+    }
     return self;
 }
 -(instancetype)where:(LKDBSQLCondition *)sqlCondition{
@@ -125,8 +127,13 @@
             LKDBSQLCondition *condition = [conditionsList objectAtIndex:i];
             if ([condition isKindOfClass:[LKDBConditionGroup class]]) {
                 LKDBConditionGroup *innerConditionGroup = (LKDBConditionGroup *)condition;
+                NSString *innerQuery = [innerConditionGroup getQuery];
+                //容错处理
+                if(innerQuery.length==0){
+                    innerQuery =@"1=1";
+                }
                 [query append:@"(" ];
-                [query append:[innerConditionGroup getQuery]];
+                [query append:innerQuery];
                 [query append:@")" ]; 
             }else{
                 

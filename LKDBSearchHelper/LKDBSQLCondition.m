@@ -19,7 +19,8 @@
 @synthesize operation;
 @synthesize value;
 +(LKDBSQLCondition *)condition:(NSString *)name operation:(NSString *)operation value:(NSString *)value{
-    
+    if(name.length==0||operation.length==0||value.length==0)
+        return nil;
     LKDBSQLCondition *condation = [LKDBSQLCondition new];
     condation.name = name;
     condation.operation = operation;
