@@ -41,7 +41,9 @@
 #####使用例子
 
 
-    //生成查询，基本定义了几种类型 ，
+    //生成查询，基本定义了几种类型
+    
+    // SELECT* FROM TestObj WHERE name='11122' AND key=123
    	LKDBSelect *select = [[[[LKDBSQLite select] from:[TestObj class]]
       where:LKDB_NotEqual_String(@"name",@"11122")]
     and:LKDB_NotEqual_Int(@"key", 123)]
@@ -50,6 +52,7 @@
     NSLog(@"%@",[select getQuery]);
     
     
+    // OR name='ssss' 
     [select or:LKDB_Equal_String(@"name", @"ssss")];
     
     NSLog(@"%@",[select getQuery]);
@@ -69,7 +72,9 @@
       or:LKDB_Equal_Int(@"key", 8899)]];
     
     NSLog(@"%@",[select getQuery]);
+    
     //最小结果 结果偏移
+    // LIMIT 5,5 
     [[select offset:5] limit:5];
     
     NSLog(@"%@",[select getQuery]); 
@@ -96,12 +101,17 @@
     
     
     //保存
-     [obj saveToDB];
+     TestObj *new_obj =[TestObj new];
+     new_obj =@"1212";
+     [new_obj saveToDB];
      
-    //更新
+    //更新：被更新的对象必须是通过查询得到的
+     TestObj *obj =[select querySingle];
+     obj.name =@"1212";
      [obj updateToDB];
      
-    //删除
+    //删除：被删除的对象必须是通过查询得到的
+     TestObj *obj =[select querySingle];
      [obj deleteToDB];
     
     //删除表
