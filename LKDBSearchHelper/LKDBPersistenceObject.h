@@ -23,5 +23,17 @@
 
 - (void)deleteToDB;
 + (void)dropToDB;
+ 
++ (NSArray *)execQuery:(NSString *)sql;
+
++ (NSArray *)execQuery:(Class)clazz sql:(NSString *)sql;
+
++ (BOOL)execSQL:(NSString *)sql;
+
+- (NSArray *)execQuery:(NSString *)sql;
+
+- (NSArray *)execQuery:(Class)clazz sql:(NSString *)sql;
+
+- (BOOL)execSQL:(NSString *)sql;
 
 @end

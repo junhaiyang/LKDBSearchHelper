@@ -5,6 +5,16 @@
 #import "LKDBSQLite.h"
 #import "LKDBHelper.h"
 
+@interface LKDBHelper(LKDBHelperQuery)
+
+-(NSMutableArray *)executeQuery:(NSString *)sql toClass:(Class)modelClass;
+
+
+-(NSMutableArray *)executeQuery:(NSString *)sql;
+ 
+
+@end
+
 @implementation LKDBPersistenceObject
  
 +(void)initialize
@@ -241,5 +251,27 @@
 }
 + (void)dropToDB{
     [LKDBSQLite dropTable:[self class]];
+}
++ (NSArray *)execQuery:(NSString *)sql{
+    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql];
+}
+
++ (NSArray *)execQuery:(Class)clazz sql:(NSString *)sql{
+    
+    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql toClass:clazz];
+}
++ (BOOL)execSQL:(NSString *)sql{
+    return [[LKDBHelper getUsingLKDBHelper]  executeSQL:sql arguments:nil];
+}
+- (NSArray *)execQuery:(NSString *)sql{
+    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql];
+}
+
+- (NSArray *)execQuery:(Class)clazz sql:(NSString *)sql{
+    
+    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql toClass:clazz];
+}
+- (BOOL)execSQL:(NSString *)sql{
+    return [[LKDBHelper getUsingLKDBHelper]  executeSQL:sql arguments:nil];
 }
 @end
