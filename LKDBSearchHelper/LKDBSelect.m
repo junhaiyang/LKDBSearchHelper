@@ -173,7 +173,7 @@
         [sql appendString:@"SELECT *  FROM "];
     }
     
-    [sql appendString:NSStringFromClass(_fromtable)];
+    [sql appendString:[_fromtable getTableName]];
     
     [sql appendString:@" "];
     

@@ -4,11 +4,11 @@ source 'https://github.com/junhaiyang/Specs.git'
 
 platform :ios, '8.0'
 inhibit_all_warnings!
-#use_frameworks!
+use_frameworks!
 
-target "LKDBSearchDemo" do
+target "LKDBSearcherSwiftDemo" do
     
-    xcodeproj 'LKDBSearchDemo/LKDBSearchDemo.xcodeproj'
+    xcodeproj 'LKDBSearcherSwiftDemo/LKDBSearcherSwiftDemo.xcodeproj'
      
 
   

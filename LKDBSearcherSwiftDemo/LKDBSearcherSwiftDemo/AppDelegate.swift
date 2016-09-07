@@ -11,7 +11,11 @@ import LKDBSearchHelper
 
 
 class TestObj: LKDBPersistenceObject {
-    var name:NSNumber = 0.0 ;
+    var name:NSString = "" ;
+    
+    static func getTableName() -> String {
+        return "TestObj"
+    }
     
     
 }
@@ -26,12 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let obj = TestObj();
         
-        obj.name = 12;
+        obj.name = "1212";
+        
+        obj.saveToDB();
         
         
-       let obj2 = LKDBSQLite.select().from(AppDelegate).Where(LKDB_Equal_String("name", "1111223344"));
+       let obj2 = (LKDBSQLite.select().from(TestObj.classForCoder()).Where(LKDB_Equal_String("name", "1212")).querySingle()) as! TestObj;
         
-        print(obj2);
+        print(obj2.name);
         
          
         // Override point for customization after application launch.

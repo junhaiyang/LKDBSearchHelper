@@ -3,8 +3,19 @@
 #import "LKDBSQLite.h"
 #import "LKDBHelper.h"
 
+@interface LKDBPersistenceObject()
+
++ (void)openFieldValidate;
+
+@end
+
 @implementation LKDBSQLite
 
+//开启数据类型校验，默认关闭
+static BOOL openFieldValidate_Flag = false;
++ (void)openFieldValidate{
+    [LKDBPersistenceObject  openFieldValidate];
+}
 
 +(LKDBSelect *)select{
     return [[LKDBSelect alloc] init];

@@ -14,16 +14,26 @@
  
 
 @end
+@interface LKDBPersistenceObject()
 
++ (void)openFieldValidate;
+
+@end
 @implementation LKDBPersistenceObject
- 
+
+static BOOL openFieldValidate_Flag = false; 
++ (void)openFieldValidate{
+    openFieldValidate_Flag =  true;
+}
 +(void)initialize
 {
 #if DEBUG
-    NSArray *validateError = [[self class] validateFields:[self class]];
-    if (validateError != nil) {
-        NSException *e = [[NSException alloc] initWithName:@"class define error!" reason:[validateError componentsJoinedByString:@"\n"] userInfo:nil];
-        @throw e;
+    if(openFieldValidate_Flag){
+        NSArray *validateError = [[self class] validateFields:[self class]];
+        if (validateError != nil) {
+            NSException *e = [[NSException alloc] initWithName:@"class define error!" reason:[validateError componentsJoinedByString:@"\n"] userInfo:nil];
+            @throw e;
+        }
     }
 #endif
     //remove unwant property

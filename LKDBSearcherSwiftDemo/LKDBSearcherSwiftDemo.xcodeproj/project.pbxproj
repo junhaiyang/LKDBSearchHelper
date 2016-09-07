@@ -12,7 +12,7 @@
 		2C12CB721D805FD800261678 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CB701D805FD800261678 /* Main.storyboard */; };
 		2C12CB741D805FD800261678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CB731D805FD800261678 /* Assets.xcassets */; };
 		2C12CB771D805FD800261678 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CB751D805FD800261678 /* LaunchScreen.storyboard */; };
-		CB3CF02F03B43A3A87705E7A /* libPods-LKDBSearcherSwiftDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76B48830AD2892C62E816125 /* libPods-LKDBSearcherSwiftDemo.a */; };
+		D73B5D426AC4F607B25A4AF3 /* Pods_LKDBSearcherSwiftDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C3DA4DA028FFC2B311BC82B /* Pods_LKDBSearcherSwiftDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		2C12CB731D805FD800261678 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C12CB761D805FD800261678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C12CB781D805FD800261678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		76B48830AD2892C62E816125 /* libPods-LKDBSearcherSwiftDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LKDBSearcherSwiftDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C3DA4DA028FFC2B311BC82B /* Pods_LKDBSearcherSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LKDBSearcherSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		978C9BE038174B4F80CF4E26 /* Pods-LKDBSearcherSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKDBSearcherSwiftDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-LKDBSearcherSwiftDemo/Pods-LKDBSearcherSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		FDC4EF10AA8957D950EC89B0 /* Pods-LKDBSearcherSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKDBSearcherSwiftDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-LKDBSearcherSwiftDemo/Pods-LKDBSearcherSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -33,7 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB3CF02F03B43A3A87705E7A /* libPods-LKDBSearcherSwiftDemo.a in Frameworks */,
+				D73B5D426AC4F607B25A4AF3 /* Pods_LKDBSearcherSwiftDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +74,7 @@
 		98995316446435A78C9EA4B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				76B48830AD2892C62E816125 /* libPods-LKDBSearcherSwiftDemo.a */,
+				8C3DA4DA028FFC2B311BC82B /* Pods_LKDBSearcherSwiftDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
