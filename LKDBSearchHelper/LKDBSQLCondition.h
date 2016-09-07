@@ -87,8 +87,8 @@ extern LKDBSQLCondition* LKDB_GreaterAndEqualThan_Int(NSString *name,int64_t val
 extern LKDBSQLCondition* LKDB_GreaterAndEqualThan_Float(NSString *name,float value); 
 
 //IN条件
-extern LKDBSQLCondition* LKDB_IN_String(NSString *name,NSArray *value);
-extern LKDBSQLCondition* LKDB_IN_Int(NSString *name,NSArray *value);
+extern LKDBSQLCondition* LKDB_IN_String(NSString *name,NSArray<NSString *> *value);
+extern LKDBSQLCondition* LKDB_IN_Int(NSString *name,NSArray<NSString *> *value);
 
 //基本条件
 extern LKDBSQLCondition* LKDB_Condition(NSString *name,NSString *operation,NSString *value); 

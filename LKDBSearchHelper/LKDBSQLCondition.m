@@ -186,10 +186,10 @@ LKDBSQLCondition* LKDB_GreaterAndEqualThan_Float(NSString *name,float value){
     return [LKDBSQLCondition condition:name operation:LKDB_OPERATION_GreaterAndEqualThan valueFloat:value];
 }
 
-LKDBSQLCondition* LKDB_IN_String(NSString *name,NSArray *value){
+LKDBSQLCondition* LKDB_IN_String(NSString *name,NSArray<NSString *> *value){
     return [LKDBSQLCondition condition:name  inString:value];
 }
-LKDBSQLCondition* LKDB_IN_Int(NSString *name,NSArray *value){
+LKDBSQLCondition* LKDB_IN_Int(NSString *name,NSArray<NSString *> *value){
     return [LKDBSQLCondition condition:name inInt:value];
 }
 
