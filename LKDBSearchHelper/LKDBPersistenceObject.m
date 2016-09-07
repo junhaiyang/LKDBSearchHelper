@@ -108,8 +108,13 @@
             // Read only attributes are assumed to be derived or calculated
             if ([attrs rangeOfString:@",R,"].location == NSNotFound)
             {
+//                attrs	__NSCFString *	@"T@\"NSString\",N,C,Vname"	0x00007fe32bb0ec80 
+//                attrs	__NSCFString *	@"T@\"NSNumber\",N,&,Vname"	0x00007f8682f1d3a0
+//                attrs	__NSCFString *	@"Tq,V_rowid"	0x00007fb5a9e0dc90
+//                attrs	__NSCFString *	@"Ti,N,V_name"	0x00007fb5a9f06fa0
+//                attrs	__NSCFString *	@"T@\"TestObj\",&,N,V_name"	0x00007fd5ba509680
                 
-                if ([attrs rangeOfString:@"@"].location != NSNotFound){
+                if ([attrs rangeOfString:@"\\@"].location != NSNotFound){
                     if ([attrs rangeOfString:@"&"].location == NSNotFound){
                         NSMutableString *string=[[NSMutableString alloc] init];
                         [string appendString:@"参数 ["];
@@ -223,11 +228,11 @@
 }
 
 + (id)loadByRowid:(NSInteger)_rowid{
-    return [[[[LKDBSQLite select] from:[self class]] where:LKDB_Equal_Int(@"rowid", _rowid)] querySingle];
+    return [[[[LKDBSQLite select] from:[self class]] Where:LKDB_Equal_Int(@"rowid", _rowid)] querySingle];
 }
 
 - (id)reload{
-    return [[[[LKDBSQLite select] from:[self class]] where:LKDB_Equal_Int(@"rowid", self.rowid)] querySingle];
+    return [[[[LKDBSQLite select] from:[self class]] Where:LKDB_Equal_Int(@"rowid", self.rowid)] querySingle];
 }
 
 + (NSArray *)listAll{

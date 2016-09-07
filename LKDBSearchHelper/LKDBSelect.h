@@ -12,7 +12,7 @@
 
 -(instancetype)from:(Class)fromtable;
  
--(instancetype)where:(LKDBSQLCondition *)sqlCondition;
+-(instancetype)Where:(LKDBSQLCondition *)sqlCondition;
 -(instancetype)and:(LKDBSQLCondition *)sqlCondition;
 -(instancetype)or:(LKDBSQLCondition *)sqlCondition; 
 

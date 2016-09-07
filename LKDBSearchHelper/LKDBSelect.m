@@ -112,7 +112,7 @@
     return self;
 }
  
--(instancetype)where:(LKDBSQLCondition *)sqlCondition{
+-(instancetype)Where:(LKDBSQLCondition *)sqlCondition{
     [conditionGroup operator:nil sqlCondition:sqlCondition];
     return self;
 }
