@@ -5,6 +5,7 @@
 #####说明
 * 鉴于移动端不应该存在过于复杂的查询 暂时不支持 have ， join  语法
 * 完全屏蔽底层API,方便后续替换
+* 支持swift编译调用
 
 
 
@@ -38,8 +39,27 @@
 	
 	@end
 	
+#####model操作例子
 	
-#####使用例子
+	
+    //保存
+     TestObj *new_obj =[TestObj new];
+     new_obj =@"1212";
+     [new_obj saveToDB];
+     
+    //更新：被更新的对象必须是通过查询得到的
+     TestObj *obj =[select querySingle];
+     obj.name =@"1212";
+     [obj updateToDB];
+     
+    //删除：被删除的对象必须是通过查询得到的
+     TestObj *obj =[select querySingle];
+     [obj deleteToDB];
+    
+    //删除表
+     [TestObj dropToDB];
+	
+#####查询条件例子
 
 
     //生成查询，基本定义了几种类型
@@ -98,8 +118,65 @@
      //查询单个结果
     TestObj *obj =[select querySingle];
     
+     
+     
+#####删除条件使用例子
+
+
+    //生成查询，基本定义了几种类型
+    
+    // DELETE FROM TestObj WHERE name='11122' AND key=123
+   	LKDBDelete *select = [[[[LKDBSQLite delete] from:[TestObj class]]
+      where:LKDB_NotEqual_String(@"name",@"11122")]
+    and:LKDB_NotEqual_Int(@"key", 123)]
+                         ;
+    
+    NSLog(@"%@",[select getQuery]);
     
     
+    // OR name='ssss' 
+    [select or:LKDB_Equal_String(@"name", @"ssss")];
+    
+    NSLog(@"%@",[select getQuery]);
+                               
+    
+    //生成一个AND包含条件: AND ( ...... ) 格式
+    LKDBConditionGroup *andConditionGroup =[select innerAndConditionGroup];
+    
+    //  AND ( key=3322 OR key=8899 ) 
+    [[innerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+      or:LKDB_Equal_Int(@"key", 8899)]];
+      
+    //再生成一个 OR 包含条件: OR ( ...... ) 格式
+    LKDBConditionGroup *orConditionGroup =[select innerOrConditionGroup];
+    
+    //  OR ( key=3322 OR key=8899 ) 
+    [[innerOrConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
+      or:LKDB_Equal_Int(@"key", 8899)]];
+      
+      
+    //在包含条件里面再生成一个 OR 包含条件: OR ( ...... ) 格式
+    LKDBConditionGroup *innerOrConditionGroup2 =[innerOrConditionGroup innerOrConditionGroup];
+    
+    //  OR ( key=3322 OR key=8899 ) 
+    [[innerOrConditionGroup2 where:LKDB_Equal_Int(@"key", 3322)]
+      or:LKDB_Equal_Int(@"key", 8899)]];
+    
+    NSLog(@"%@",[select getQuery]);
+     
+    
+    NSLog(@"%@",[select getQuery]);  
+    
+     //执行删除
+     [select execute]; 
+    
+    
+    
+    
+     
+#####事物操作例子
+	
+	
      //事物操作
     [LKDBSQLite executeForTransaction:^BOOL(void) {
         
@@ -108,24 +185,31 @@
         return YES; //YES 为提交事务，NO 取消事务
     }];
     
-    
-    
-    //保存
-     TestObj *new_obj =[TestObj new];
-     new_obj =@"1212";
-     [new_obj saveToDB];
+    或
      
-    //更新：被更新的对象必须是通过查询得到的
-     TestObj *obj =[select querySingle];
-     obj.name =@"1212";
-     [obj updateToDB];
-     
-    //删除：被删除的对象必须是通过查询得到的
-     TestObj *obj =[select querySingle];
-     [obj deleteToDB];
+     //事物操作
+    [[LKDBSQLite transaction] executeForTransaction:^BOOL(void) {
+        
+        [[LKDBSQLite select] from:[TestObj class]] .........
+        
+        return YES; //YES 为提交事务，NO 取消事务
+    }];
     
-    //删除表
-     [TestObj dropToDB];
+    线性操作
+    
+    LKDBTransaction * transaction = [LKDBSQLite transaction];
+    
+    [transaction  update:obj];
+    [transaction  insert:obj];
+    [transaction  delete:obj];
+    
+    [transaction  updateAll:objs];
+    [transaction  insertAll:objs];
+    [transaction  deleteAll:objs];
+    
+    [transaction execute];  //会严格按照操作调用顺序执行
+     
+    
     
 #####条件说明
 
