@@ -4,8 +4,15 @@
 
 #####说明
 * 鉴于移动端不应该存在过于复杂的查询 暂时不支持 have ， join  语法
-* 完全屏蔽底层API,方便后续替换
-* 支持swift编译调用
+* 支持 Swift & OC 使用
+* 全面支持 NSArray,NSDictionary, ModelClass, NSNumber, NSString, NSDate, NSData, UIColor, UIImage, CGRect, CGPoint, CGSize, NSRange, int,char,float, double, long.. 等属性的自动化操作(插入和查询)
+
+####Requirements
+
+* iOS 7.0+
+* ARC only 
+* FMDB([https://github.com/ccgus/fmdb](https://github.com/ccgus/fmdb))
+* LKDBHelper-SQLite-ORM([https://github.com/li6185377/LKDBHelper-SQLite-ORM](https://github.com/li6185377/LKDBHelper-SQLite-ORM))
 
 
 
@@ -16,7 +23,7 @@
 	 
     pod 'LKDBSearchHelper', '~> 1.0'
 
-#####表例子
+#####表例子(OC)
 
 		
 	#import "LKDBSearchHelper.h"
@@ -39,7 +46,25 @@
 	
 	@end
 	
-#####model操作例子
+#####表例子(Swift)
+ 
+	import LKDBSearchHelper
+	
+	class TestObj: LKDBPersistenceObject {
+    var name:NSString = "" ;
+    var ads:NSString = "" ;
+    
+    //此方法必须实现，定义表名
+    static func getTableName() -> String {
+        return "TestObj"
+    }
+    
+    open override class func transients() -> [Any] {
+        return ["myname"];  //忽略不存库
+    }
+}
+	
+#####Model操作例子
 	
 	
     //保存

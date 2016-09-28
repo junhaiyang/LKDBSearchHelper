@@ -12,9 +12,15 @@ import LKDBSearchHelper
 
 class TestObj: LKDBPersistenceObject {
     var name:NSString = "" ;
+    var myname:NSString = "" ;
     static func getTableName() -> String {
         return "TestObj"
     }
+    
+    open override class func transients() -> [Any] {
+        return ["myname"];
+    }
+    
 }
 
 @UIApplicationMain
