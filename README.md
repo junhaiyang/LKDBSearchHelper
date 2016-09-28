@@ -148,25 +148,25 @@
 #####删除条件使用例子
 
 
-    //生成查询，基本定义了几种类型
+    //生成删除条件，基本定义了几种类型
     
     // DELETE FROM TestObj WHERE name='11122' AND key=123
-   	LKDBDelete *select = [[[[LKDBSQLite delete] from:[TestObj class]]
+   	LKDBDelete *deleteQuery = [[[[LKDBSQLite delete] from:[TestObj class]]
       where:LKDB_NotEqual_String(@"name",@"11122")]
     and:LKDB_NotEqual_Int(@"key", 123)]
                          ;
     
-    NSLog(@"%@",[select getQuery]);
+    NSLog(@"%@",[deleteQuery getQuery]);
     
     
     // OR name='ssss' 
-    [select or:LKDB_Equal_String(@"name", @"ssss")];
+    [deleteQuery or:LKDB_Equal_String(@"name", @"ssss")];
     
-    NSLog(@"%@",[select getQuery]);
+    NSLog(@"%@",[deleteQuery getQuery]);
                                
     
     //生成一个AND包含条件: AND ( ...... ) 格式
-    LKDBConditionGroup *andConditionGroup =[select innerAndConditionGroup];
+    LKDBConditionGroup *andConditionGroup =[deleteQuery innerAndConditionGroup];
     
     //  AND ( key=3322 OR key=8899 ) 
     [[innerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
@@ -187,13 +187,10 @@
     [[innerOrConditionGroup2 where:LKDB_Equal_Int(@"key", 3322)]
       or:LKDB_Equal_Int(@"key", 8899)]];
     
-    NSLog(@"%@",[select getQuery]);
-     
-    
-    NSLog(@"%@",[select getQuery]);  
+    NSLog(@"%@",[deleteQuery getQuery]);  
     
      //执行删除
-     [select execute]; 
+     [deleteQuery execute]; 
     
     
     
@@ -220,13 +217,11 @@
         return YES; //YES 为提交事务，NO 取消事务
     }];
     
-    线性操作
+    model直接操作
     
     LKDBTransaction * transaction = [LKDBSQLite transaction];
     
-    [transaction  update:obj];
-    [transaction  insert:obj];
-    [transaction  delete:obj];
+    [[[transaction  update:obj]  insert:obj]  delete:obj];
     
     [transaction  updateAll:objs];
     [transaction  insertAll:objs];
