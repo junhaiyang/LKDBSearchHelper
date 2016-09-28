@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
  
 
   s.name         = "LKDBSearchHelper"
-  s.version      = "1.2"
+  s.version      = "1.3"
   s.summary      = "LKDBSearchHelper Sample Task....."
  
 
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.ios.framework = 'UIKit'
  
-  s.source = { :git => 'https://github.com/junhaiyang/LKDBSearchHelper.git' , :tag => '1.2'} 
+  s.source = { :git => 'https://github.com/junhaiyang/LKDBSearchHelper.git' , :tag => '1.3'} 
  
   s.requires_arc = true
 
