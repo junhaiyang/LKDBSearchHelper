@@ -6,20 +6,21 @@
 
 @interface LKDBConditionGroup(){
     
-    NSMutableArray *conditionsList ;
+    NSMutableArray *  _Nonnull conditionsList ;
     
-    LKDBQueryBuilder *query;
+    LKDBQueryBuilder *  _Nonnull query;
     BOOL isChanged;
     BOOL allCommaSeparated;
     BOOL useParenthesis;
 
-    NSString   *separator;
+    
+    NSString   *  _Nonnull separator;
 }
 
 @end
 
 @implementation LKDBConditionGroup
-- (instancetype)init
+- (instancetype _Nonnull)init
 {
     self = [super init];
     if (self) {
@@ -31,14 +32,14 @@
     return self;
 } 
 
--(LKDBConditionGroup *)innerAndConditionGroup{
+-(LKDBConditionGroup *  _Nonnull )innerAndConditionGroup{
     LKDBConditionGroup *conditionGroup =[LKDBConditionGroup clause];
     [self setPreviousSeparator:@"AND"];
     [conditionsList addObject:conditionGroup];
     isChanged =true;
     return conditionGroup;
 }
--(LKDBConditionGroup *)innerOrConditionGroup{
+-(LKDBConditionGroup *  _Nonnull )innerOrConditionGroup{
     LKDBConditionGroup *conditionGroup =[LKDBConditionGroup clause];
     [self setPreviousSeparator:@"OR"];
     [conditionsList addObject:conditionGroup];
@@ -46,30 +47,30 @@
     return conditionGroup;
 }
 
-+(instancetype)clause{
++(instancetype _Nonnull)clause{
     return [LKDBConditionGroup new];
 }
-+(instancetype)nonGroupingClause{
++(instancetype _Nonnull)nonGroupingClause{
     return [[LKDBConditionGroup new] setUseParenthesis:false];
 }
--(instancetype)setUseParenthesis:(BOOL)_useParenthesis{
+-(instancetype _Nonnull)setUseParenthesis:(BOOL)_useParenthesis{
     useParenthesis = _useParenthesis;
     isChanged =true;
     return self;
 }
--(instancetype)setAllCommaSeparated:(BOOL)_allCommaSeparated{
+-(instancetype _Nonnull)setAllCommaSeparated:(BOOL)_allCommaSeparated{
     allCommaSeparated = _allCommaSeparated;
     isChanged =true;
     return self;
 }
--(void)setPreviousSeparator:(NSString *)_separator{
+-(void)setPreviousSeparator:(NSString * _Nonnull)_separator{
     if(conditionsList.count>0){
         [conditionsList.lastObject separator:_separator];
     }
     
 }
 
--(instancetype)operator:(NSString *)_separator sqlCondition:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)operator:(NSString *  _Nonnull )_separator sqlCondition:(LKDBSQLCondition *  _Nonnull )sqlCondition{
     if(sqlCondition){
         [self setPreviousSeparator:_separator];
         [conditionsList addObject:sqlCondition];
@@ -77,32 +78,32 @@
     }
     return self;
 }
--(instancetype)where:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)where:(LKDBSQLCondition *  _Nonnull )sqlCondition{
     [self operator:nil sqlCondition:sqlCondition];
     return self;
 }
--(instancetype)or:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)or:(LKDBSQLCondition *  _Nonnull )sqlCondition{
     [self operator:@"OR" sqlCondition:sqlCondition];
     return self;
 }
--(instancetype)and:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)and:(LKDBSQLCondition *  _Nonnull )sqlCondition{
     [self operator:@"AND" sqlCondition:sqlCondition];
     return self;
 }
--(instancetype)andAll:(NSArray<LKDBSQLCondition *> *)sqlConditions{
+-(instancetype _Nonnull)andAll:(NSArray<LKDBSQLCondition *> *  _Nonnull )sqlConditions{
     for (LKDBSQLCondition *sqlCondition in sqlConditions) {
         [self and:sqlCondition];
     }
     return self;
 }
--(instancetype)orAll:(NSArray<LKDBSQLCondition *> *)sqlConditions{
+-(instancetype _Nonnull)orAll:(NSArray<LKDBSQLCondition *> *  _Nonnull )sqlConditions{
     for (LKDBSQLCondition *sqlCondition in sqlConditions) {
         [self or:sqlCondition];
     }
     return self;
 }
 
--(void)appendConditionToQuery:(LKDBQueryBuilder *)queryBuilder{
+-(void)appendConditionToQuery:(LKDBQueryBuilder *  _Nonnull )queryBuilder{
     if (useParenthesis && conditionsList.count > 0) {
         [queryBuilder append:@"(" ];
     }
@@ -117,7 +118,7 @@
     }
 }
  
--(NSString *)getQuery{
+-(NSString *  _Nonnull )getQuery{
     if (isChanged) {
         query = [LKDBQueryBuilder new];
         
@@ -156,7 +157,7 @@
 
 }
 
--(NSString *)toString{
+-(NSString *  _Nonnull )toString{
     return [self getQuery];
 }
 
@@ -164,7 +165,7 @@
     return (int)conditionsList.count;
 }
 
--(NSArray<LKDBSQLCondition *> *)getConditions{
+-(NSArray<LKDBSQLCondition *> *  _Nonnull )getConditions{
     return conditionsList;
 }
 

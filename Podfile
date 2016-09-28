@@ -6,10 +6,11 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 use_frameworks!
 
+#target "LKDBSearchDemo" do
+#    xcodeproj 'LKDBSearchDemo/LKDBSearchDemo.xcodeproj'
 target "LKDBSearcherSwiftDemo" do
-    
     xcodeproj 'LKDBSearcherSwiftDemo/LKDBSearcherSwiftDemo.xcodeproj'
-     
+
 
   
     

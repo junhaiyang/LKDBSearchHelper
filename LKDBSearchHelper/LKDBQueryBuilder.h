@@ -5,23 +5,23 @@
 @interface LKDBQueryBuilder : NSObject
 
 
--(LKDBQueryBuilder *)append:(NSString *)object;
--(LKDBQueryBuilder *)appendSpace;
--(LKDBQueryBuilder *)appendSpaceSeparated:(NSString *)object;
--(LKDBQueryBuilder *)appendParenthesisEnclosed:(NSString *)object;
+-(LKDBQueryBuilder * _Nonnull)append:(NSString * _Nonnull)object;
+-(LKDBQueryBuilder * _Nonnull)appendSpace;
+-(LKDBQueryBuilder * _Nonnull)appendSpaceSeparated:(NSString * _Nonnull)object;
+-(LKDBQueryBuilder * _Nonnull)appendParenthesisEnclosed:(NSString * _Nonnull)object;
 
--(LKDBQueryBuilder *)appendOptional:(NSString *)object;
+-(LKDBQueryBuilder * _Nonnull)appendOptional:(NSString * _Nonnull)object;
 
--(NSString *)join:(NSString *)delimiter tokens:(NSArray *)tokens;
+-(NSString * _Nonnull)join:(NSString * _Nonnull)delimiter tokens:(NSArray * _Nonnull)tokens;
 
 
--(LKDBQueryBuilder *)appendArray:(NSArray *)objects;
+-(LKDBQueryBuilder * _Nonnull)appendArray:(NSArray * _Nonnull)objects;
 
--(LKDBQueryBuilder *)appendQualifier:(NSString *)name value:(NSString *)value;
+-(LKDBQueryBuilder * _Nonnull)appendQualifier:(NSString * _Nonnull)name value:(NSString * _Nonnull)value;
 
--(LKDBQueryBuilder *)appendNotEmpty:(NSString *)object;
+-(LKDBQueryBuilder * _Nonnull)appendNotEmpty:(NSString * _Nonnull)object;
 
--(NSString *)toString;
--(NSString *)getQuery;
+-(NSString * _Nonnull)toString;
+-(NSString * _Nonnull)getQuery;
 
 @end

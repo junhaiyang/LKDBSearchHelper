@@ -2,6 +2,7 @@
 
 #import "LKDBSQLite.h"
 #import "LKDBHelper.h"
+#import "LKDBTransaction.h"
 
 @interface LKDBPersistenceObject()
 
@@ -17,47 +18,53 @@ static BOOL openFieldValidate_Flag = false;
     [LKDBPersistenceObject  openFieldValidate];
 }
 
-+(LKDBSelect *)select{
++(LKDBSelect * _Nonnull )select{
     return [[LKDBSelect alloc] init];
 }
-+ (void)executeForTransaction:(BOOL (^)(void))block{
-    [[LKDBHelper getUsingLKDBHelper] executeForTransaction:^BOOL(LKDBHelper *helper) {
-        return block();
-    }]; 
++(LKDBDelete * _Nonnull )delete{
+    return [[LKDBDelete alloc] init];
 }
 
-+(int)update:(LKDBPersistenceObject *)object{
++(LKDBTransaction * _Nonnull )transaction{
+    return [[LKDBTransaction alloc] init];
+}
++ (void)executeForTransaction:(BOOL (^_Nullable)(void))block{
+    [[LKDBTransaction new] executeForTransaction:block];
+     
+}
+
++(int)update:(LKDBPersistenceObject * _Nonnull )object{
     return [LKDBSQLite update:object helper:[LKDBHelper getUsingLKDBHelper]];
 }
 
-+(int)insert:(LKDBPersistenceObject *)object{
++(int)insert:(LKDBPersistenceObject * _Nonnull )object{
     return [LKDBSQLite insert:object helper:[LKDBHelper getUsingLKDBHelper]];
 }
 
-+(void)delete:(LKDBPersistenceObject *)object{
++(void)delete:(LKDBPersistenceObject * _Nonnull )object{
     [LKDBSQLite delete:object helper:[LKDBHelper getUsingLKDBHelper]];
 }
 
-+(void)dropTable:(Class)clazz{
++(void)dropTable:(Class _Nonnull)clazz{
     [LKDBSQLite dropTable:clazz helper:[LKDBHelper getUsingLKDBHelper]];
 }
  
 
-+(int)update:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper{
++(int)update:(LKDBPersistenceObject * _Nonnull )object helper:(LKDBHelper * _Nonnull )helper{
     [helper updateToDB:object where:@{@"rowid":[NSNumber numberWithInteger:object.rowid]}];
     return (int)object.rowid;
 }
 
-+(int)insert:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper{
++(int)insert:(LKDBPersistenceObject * _Nonnull )object helper:(LKDBHelper * _Nonnull )helper{
     [helper  insertToDB:object];
     return (int)object.rowid;
 }
 
-+(void)delete:(LKDBPersistenceObject *)object helper:(LKDBHelper *)helper{
++(void)delete:(LKDBPersistenceObject * _Nonnull )object helper:(LKDBHelper * _Nonnull )helper{
     [helper  deleteToDB:object];
 }
 
-+(void)dropTable:(Class)clazz helper:(LKDBHelper *)helper{
++(void)dropTable:(Class _Nonnull)clazz helper:(LKDBHelper * _Nonnull )helper{
     [helper dropTableWithClass:clazz];
 }
 

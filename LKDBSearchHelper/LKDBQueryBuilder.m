@@ -6,7 +6,7 @@
 
     BOOL isChanged;
     
-    NSMutableString *query;
+    NSMutableString *  _Nonnull query;
 }
 
 @end
@@ -21,30 +21,30 @@
     return self;
 }
 
--(LKDBQueryBuilder *)append:(NSString *)object{
+-(LKDBQueryBuilder *  _Nonnull )append:(NSString *  _Nonnull )object{
     [query appendString:object];
     return self;
 }
--(LKDBQueryBuilder *)appendSpace{
+-(LKDBQueryBuilder *  _Nonnull )appendSpace{
     [self append:@" "];
     return self;
 }
--(LKDBQueryBuilder *)appendSpaceSeparated:(NSString *)object{
+-(LKDBQueryBuilder *  _Nonnull )appendSpaceSeparated:(NSString *  _Nonnull )object{
     [[self append:object] appendSpace];
     return self;
 }
--(LKDBQueryBuilder *)appendParenthesisEnclosed:(NSString *)object{
+-(LKDBQueryBuilder *  _Nonnull )appendParenthesisEnclosed:(NSString *  _Nonnull )object{
     [[[self append:@"("] append:object] append:@")"];
     return self;
 }
 
--(LKDBQueryBuilder *)appendOptional:(NSString *)object{
+-(LKDBQueryBuilder *  _Nonnull )appendOptional:(NSString *  _Nonnull )object{
     if(object)
         [self append:object];
     return self;
 }
 
--(NSString *)join:(NSString *)delimiter tokens:(NSArray *)tokens{
+-(NSString *  _Nonnull )join:(NSString *  _Nonnull )delimiter tokens:(NSArray *  _Nonnull )tokens{
     
     NSMutableString *sb =[NSMutableString new];
     BOOL firstTime = true;
@@ -60,11 +60,11 @@
 }
 
 
--(LKDBQueryBuilder *)appendArray:(NSArray *)objects{
+-(LKDBQueryBuilder *  _Nonnull )appendArray:(NSArray *  _Nonnull )objects{
     return [self append:[self join:@", " tokens:objects]];
 }
 
--(LKDBQueryBuilder *)appendQualifier:(NSString *)name value:(NSString *)value{
+-(LKDBQueryBuilder *  _Nonnull )appendQualifier:(NSString *  _Nonnull )name value:(NSString *  _Nonnull )value{
     if(value.length>0){
         if(name){
             [self append:name];
@@ -75,16 +75,16 @@
     return self;
 }
 
--(LKDBQueryBuilder *)appendNotEmpty:(NSString *)object{
+-(LKDBQueryBuilder *  _Nonnull )appendNotEmpty:(NSString *  _Nonnull )object{
     if(object.length>0)
         [self append:object];
     return self;
 }
 
--(NSString *)toString{
+-(NSString *  _Nonnull )toString{
     return [self getQuery];
 }
--(NSString *)getQuery{
+-(NSString *  _Nonnull )getQuery{
     return query;
 }
 

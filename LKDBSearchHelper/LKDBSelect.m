@@ -3,28 +3,27 @@
 #import "LKDBConditionGroup.h"
 #import "LKDBQueryBuilder.h"
 
-#import "LKDBHelper.h"
-
+#import "LKDBHelper.h" 
 
 
 @interface LKDBHelper(LKDBSelect)
  
 
 
--(NSMutableArray *)executeQuery:(NSString *)sql toClass:(Class)modelClass;
+-(NSMutableArray *  _Nonnull )executeQuery:(NSString *  _Nonnull )sql toClass:(Class)modelClass;
 
 
--(NSMutableArray *)executeQuery:(NSString *)sql;
+-(NSMutableArray *  _Nonnull )executeQuery:(NSString *  _Nonnull )sql;
 
 
-- (NSMutableArray *)executeResult:(FMResultSet *)set Class:(Class)modelClass tableName:(NSString *)tableName;
+- (NSMutableArray *  _Nonnull )executeResult:(FMResultSet *  _Nonnull )set Class:(Class)modelClass tableName:(NSString * _Nullable )tableName;
 
 
 @end
 
 @implementation LKDBHelper(LKDBSelect)
 
--(NSMutableArray *)executeQuery:(NSString *)executeSQL toClass:(Class)modelClass
+-(NSMutableArray *  _Nonnull )executeQuery:(NSString *  _Nonnull )executeSQL toClass:(Class)modelClass
 {
     
     __block NSMutableArray* results = nil;
@@ -36,7 +35,7 @@
     return results;
 }
 
--(NSMutableArray *)executeQuery:(NSString *)executeSQL
+-(NSMutableArray *  _Nonnull )executeQuery:(NSString *  _Nonnull )executeSQL
 {
     
     __block NSMutableArray* results = nil;
@@ -48,18 +47,18 @@
     return results;
 }
 
-- (NSMutableArray *)executeResult:(FMResultSet *)set
+- (NSMutableArray *  _Nonnull )executeResult:(FMResultSet *  _Nonnull )set
 {
-    NSMutableArray* array = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray*   _Nonnull array = [NSMutableArray arrayWithCapacity:0];
     int columnCount = [set columnCount];
     while ([set next]) {
         
-        NSMutableDictionary* bindingModel = [[NSMutableDictionary alloc]init];
+        NSMutableDictionary*  _Nonnull  bindingModel = [[NSMutableDictionary alloc]init];
         
         for (int i=0; i<columnCount; i++) {
             
-            NSString* sqlName = [set columnNameForIndex:i];
-            NSObject* sqlValue = [set objectForColumnIndex:i];
+            NSString*  _Nonnull  sqlName = [set columnNameForIndex:i];
+            NSObject*   _Nonnull sqlValue = [set objectForColumnIndex:i];
             
             [bindingModel setObject:sqlValue forKey:sqlName];
         }
@@ -72,26 +71,26 @@
 @interface LKDBSelect(){
     
     
-    LKDBConditionGroup *conditionGroup;
+    LKDBConditionGroup *  _Nonnull conditionGroup;
     
     int limit ;
     int offset ;
     
-    NSMutableArray<NSString *> *groupByList;
-    NSMutableArray<NSString *> *orderByList;
+    NSMutableArray<NSString *> *  _Nonnull groupByList;
+    NSMutableArray<NSString *> *  _Nonnull orderByList;
     
     
     Class _fromtable;
     
     BOOL selectCount;
     
-    LKDBHelper *helper;
+    LKDBHelper *  _Nonnull helper;
 }
 
 @end
 
 @implementation LKDBSelect
--(instancetype)init{
+-(instancetype _Nonnull)init{
     
     self = [super init];
     if (self) {
@@ -107,66 +106,70 @@
     }
     return self;
 }
--(instancetype)from:(Class)fromtable{
+-(instancetype _Nonnull)from:(Class _Nonnull)fromtable{
     _fromtable =fromtable;
     return self;
 }
  
--(instancetype)Where:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)Where:(LKDBSQLCondition *  _Nonnull )sqlCondition{
     [conditionGroup operator:nil sqlCondition:sqlCondition];
     return self;
 }
 
--(instancetype)or:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)or:(LKDBSQLCondition * _Nonnull )sqlCondition{
     [conditionGroup or:sqlCondition];
     return self;
 }
--(instancetype)and:(LKDBSQLCondition *)sqlCondition{
+-(instancetype _Nonnull)and:(LKDBSQLCondition * _Nonnull )sqlCondition{
     [conditionGroup and:sqlCondition];
     return self;
 } 
 
--(instancetype)andAll:(NSArray<LKDBSQLCondition *> *)sqlConditions{
+-(instancetype _Nonnull)andAll:(NSArray<LKDBSQLCondition *> *  _Nonnull )sqlConditions{
     [conditionGroup andAll:sqlConditions];
     return self;
 }
 
--(instancetype)orAll:(NSArray<LKDBSQLCondition *> *)sqlConditions{
+-(instancetype _Nonnull)orAll:(NSArray<LKDBSQLCondition *> *  _Nonnull )sqlConditions{
     [conditionGroup orAll:sqlConditions];
     return self;
 }
  
 
--(LKDBConditionGroup *)innerAndConditionGroup{
+-(LKDBConditionGroup *  _Nonnull )innerAndConditionGroup{
     return [conditionGroup innerAndConditionGroup];
 }
 
--(LKDBConditionGroup *)orConditionGroup{
+-(LKDBConditionGroup *  _Nonnull )orConditionGroup{
     return [conditionGroup innerOrConditionGroup];
 }
 
-
--(instancetype)orderBy:(NSArray *)orderBys{
-    [orderByList addObjectsFromArray:orderBys];
+-(instancetype _Nonnull)orderBy:(NSString *  _Nonnull)orderBy ascending:(BOOL)ascending{
+    if(ascending){
+        [orderByList addObject:[NSString stringWithFormat:@"%@ asc",orderBy]];
+    }else{
+        [orderByList addObject:[NSString stringWithFormat:@"%@ desc",orderBy]];
+    } 
     return self;
 }
--(instancetype)groupBy:(NSArray *)groupBys{
-    [groupByList addObjectsFromArray:groupBys];
+ 
+-(instancetype _Nonnull)groupBy:(NSString *  _Nonnull)groupBy{
+    [groupByList addObject:groupBy];
     return self;
 }
 
--(instancetype)offset:(int)_offset{
+-(instancetype _Nonnull)offset:(int)_offset{
     offset = _offset;
     return self;
 }
--(instancetype)limit:(int)_limit{
+-(instancetype _Nonnull)limit:(int)_limit{
     limit = _limit;
     return self;
 } 
 
--(NSString *)executeSQL{
+-(NSString *  _Nonnull )executeSQL{
     
-    NSMutableString *sql =[NSMutableString new];
+    NSMutableString * _Nullable sql =[NSMutableString new];
     if(selectCount){
         [sql appendString:@"SELECT COUNT(*) as count  FROM "];
     }else{
@@ -196,6 +199,7 @@
     if(orderByList.count>0){
         [sql appendString:@" ORDER BY "];
         
+        
         [sql appendString:[orderByList componentsJoinedByString:@","]];
         
     }
@@ -208,19 +212,19 @@
     NSLog(@"sql:%@",sql);
     return sql;
 }
--(NSString *)getQuery{
+-(NSString * _Nonnull )getQuery{
     return [self executeSQL];
 }
 
--(NSMutableArray *)queryList{
+-(NSMutableArray *  _Nonnull )queryList{
     return [helper  executeQuery:[self executeSQL] toClass:_fromtable];
     
 }
--(NSMutableArray *)queryOriginalList{
+-(NSMutableArray *  _Nonnull )queryOriginalList{
     return [helper  executeQuery:[self executeSQL]];
     
 }
--(id)querySingle{
+-(id _Nonnull)querySingle{
     limit = 1;
     
     NSMutableArray *result =  [helper  executeQuery:[self executeSQL] toClass:_fromtable];
@@ -230,7 +234,7 @@
     return  nil;
      
 }
--(id)queryOriginaSingle{
+-(id _Nonnull)queryOriginaSingle{
     
     limit = 1;
     

@@ -7,10 +7,10 @@
 
 @interface LKDBHelper(LKDBHelperQuery)
 
--(NSMutableArray *)executeQuery:(NSString *)sql toClass:(Class)modelClass;
+-(NSMutableArray *  _Nonnull )executeQuery:(NSString *  _Nonnull )sql toClass:(Class)modelClass;
 
 
--(NSMutableArray *)executeQuery:(NSString *)sql;
+-(NSMutableArray *  _Nonnull )executeQuery:(NSString *  _Nonnull )sql;
  
 
 @end
@@ -29,9 +29,9 @@ static BOOL openFieldValidate_Flag = false;
 {
 #if DEBUG
     if(openFieldValidate_Flag){
-        NSArray *validateError = [[self class] validateFields:[self class]];
+        NSArray *  _Nonnull validateError = [[self class] validateFields:[self class]];
         if (validateError != nil) {
-            NSException *e = [[NSException alloc] initWithName:@"class define error!" reason:[validateError componentsJoinedByString:@"\n"] userInfo:nil];
+            NSException *  _Nonnull e = [[NSException alloc] initWithName:@"class define error!" reason:[validateError componentsJoinedByString:@"\n"] userInfo:nil];
             @throw e;
         }
     }
@@ -43,13 +43,13 @@ static BOOL openFieldValidate_Flag = false;
     
 }
 
-+ (NSDictionary *)fields:(Class)class
++ (NSDictionary *  _Nonnull )fields:(Class)class
 {
     // Recurse up the classes, but stop at NSObject. Each class only reports its own properties, not those inherited from its superclass
-    NSMutableDictionary *theProps;
+    NSMutableDictionary *  _Nonnull theProps;
     
     if ([class superclass] != [NSObject class])
-        theProps = (NSMutableDictionary *)[[self class] fields:[class superclass]];
+        theProps = (NSMutableDictionary *  _Nonnull )[[self class] fields:[class superclass]];
     else
         theProps = [NSMutableDictionary dictionary];
     
@@ -85,7 +85,7 @@ static BOOL openFieldValidate_Flag = false;
     
     return theProps;
 }
-+ (NSMutableArray *)validateFields:(Class)class
++ (NSMutableArray *  _Nonnull )validateFields:(Class)class
 {
     // Recurse up the classes, but stop at NSObject. Each class only reports its own properties, not those inherited from its superclass
     
@@ -163,10 +163,10 @@ static BOOL openFieldValidate_Flag = false;
 }
 
 
-+ (NSMutableArray *)validate:(LKDBPersistenceObject *)object
++ (NSMutableArray *  _Nonnull )validate:(LKDBPersistenceObject *  _Nonnull )object
 {
     
-    LKModelInfos* infos = [[object class] getModelInfos];
+    LKModelInfos*   _Nonnull infos = [[object class] getModelInfos];
     
     NSMutableArray *error=[[NSMutableArray alloc] init];
     [error addObject:[[NSMutableString alloc] initWithString:@"\n===============================数据与对象不匹配========================================="]];
@@ -233,19 +233,19 @@ static BOOL openFieldValidate_Flag = false;
         return nil;
     }
 }
-+ (NSArray *)transients{
++ (NSArray *  _Nonnull )transients{
     return nil;
 }
 
-+ (id)loadByRowid:(NSInteger)_rowid{
++ (id _Nonnull)loadByRowid:(NSInteger)_rowid{
     return [[[[LKDBSQLite select] from:[self class]] Where:LKDB_Equal_Int(@"rowid", _rowid)] querySingle];
 }
 
-- (id)reload{
+- (id _Nonnull)reload{
     return [[[[LKDBSQLite select] from:[self class]] Where:LKDB_Equal_Int(@"rowid", self.rowid)] querySingle];
 }
 
-+ (NSArray *)listAll{
++ (NSArray *   _Nonnull )listAll{
     return [[[LKDBSQLite select] from:[self class]] queryList];
 }
 
@@ -267,26 +267,26 @@ static BOOL openFieldValidate_Flag = false;
 + (void)dropToDB{
     [LKDBSQLite dropTable:[self class]];
 }
-+ (NSArray *)execQuery:(NSString *)sql{
-    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql];
-}
-
-+ (NSArray *)execQuery:(Class)clazz sql:(NSString *)sql{
-    
-    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql toClass:clazz];
-}
-+ (BOOL)execSQL:(NSString *)sql{
-    return [[LKDBHelper getUsingLKDBHelper]  executeSQL:sql arguments:nil];
-}
-- (NSArray *)execQuery:(NSString *)sql{
-    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql];
-}
-
-- (NSArray *)execQuery:(Class)clazz sql:(NSString *)sql{
-    
-    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql toClass:clazz];
-}
-- (BOOL)execSQL:(NSString *)sql{
-    return [[LKDBHelper getUsingLKDBHelper]  executeSQL:sql arguments:nil];
-}
+//+ (NSArray *  _Nonnull )execQuery:(NSString *  _Nonnull )sql{
+//    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql];
+//}
+//
+//+ (NSArray *  _Nonnull )execQuery:(Class _Nonnull)clazz sql:(NSString *  _Nonnull )sql{
+//    
+//    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql toClass:clazz];
+//}
+//+ (BOOL)execSQL:(NSString *  _Nonnull )sql{
+//    return [[LKDBHelper getUsingLKDBHelper]  executeSQL:sql arguments:nil];
+//}
+//- (NSArray *  _Nonnull )execQuery:(NSString * _Nonnull)sql{
+//    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql];
+//}
+//
+//- (NSArray *  _Nonnull )execQuery:(Class _Nonnull)clazz sql:(NSString *  _Nonnull )sql{
+//    
+//    return [[LKDBHelper getUsingLKDBHelper]  executeQuery:sql toClass:clazz];
+//}
+//- (BOOL)execSQL:(NSString *  _Nonnull )sql{
+//    return [[LKDBHelper getUsingLKDBHelper]  executeSQL:sql arguments:nil];
+//}
 @end

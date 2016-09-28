@@ -31,6 +31,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     TestObj *obj = [TestObj new];
+     
     
 //    obj.name =1212;
     

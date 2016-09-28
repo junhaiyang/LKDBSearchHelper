@@ -8,34 +8,34 @@
 
 @interface LKDBSelect : NSObject
 
--(instancetype)init;
+-(instancetype  _Nonnull)init;
 
--(instancetype)from:(Class)fromtable;
+-(instancetype  _Nonnull)from:(__unsafe_unretained Class  _Nonnull)fromtable;
  
--(instancetype)Where:(LKDBSQLCondition *)sqlCondition;
--(instancetype)and:(LKDBSQLCondition *)sqlCondition;
--(instancetype)or:(LKDBSQLCondition *)sqlCondition; 
+-(instancetype _Nonnull)Where:(LKDBSQLCondition * _Nonnull)sqlCondition;
+-(instancetype _Nonnull)and:(LKDBSQLCondition * _Nonnull)sqlCondition;
+-(instancetype _Nonnull)or:(LKDBSQLCondition * _Nonnull)sqlCondition;
 
 //查询条件包含括号,会构造一个新的 LKDBConditionGroup,小括号包含 
--(LKDBConditionGroup *)innerAndConditionGroup;
+-(LKDBConditionGroup * _Nonnull)innerAndConditionGroup;
 
--(LKDBConditionGroup *)innerOrConditionGroup;
+-(LKDBConditionGroup * _Nonnull)innerOrConditionGroup;
  
--(instancetype)orderBy:(NSArray *)orderBys;
--(instancetype)groupBy:(NSArray *)groupBys;
+-(instancetype _Nonnull)orderBy:(NSString *  _Nonnull)orderBy ascending:(BOOL)ascending;
+-(instancetype _Nonnull)groupBy:(NSString *  _Nonnull)groupBy;
 
--(instancetype)offset:(int)offset;
--(instancetype)limit:(int)limit;
-
-
--(NSString *)getQuery;
+-(instancetype _Nonnull)offset:(int)offset;
+-(instancetype _Nonnull)limit:(int)limit;
 
 
--(NSArray<LKDBPersistenceObject *> *)queryList;
--(id)querySingle;
+-( NSString * _Nonnull )getQuery;
 
--(NSArray *)queryOriginalList;
--(id)queryOriginaSingle;
+
+-(NSArray<LKDBPersistenceObject *> *  _Nonnull)queryList;
+-(id _Nonnull)querySingle;
+
+-(NSArray *  _Nonnull)queryOriginalList;
+-(id  _Nonnull)queryOriginaSingle;
 
 -(int)queryCount;
 
