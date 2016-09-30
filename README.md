@@ -21,7 +21,7 @@
 	source 'https://github.com/CocoaPods/Specs.git'
 	source 'https://github.com/junhaiyang/Specs.git'
 	 
-    pod 'LKDBSearchHelper', '~> 1.0'
+    pod 'LKDBSearchHelper', '~> 1.3'
 
 #####表例子(OC)
 
