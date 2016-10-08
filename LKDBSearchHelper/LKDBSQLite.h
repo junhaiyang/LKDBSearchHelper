@@ -16,7 +16,7 @@
 
 +(LKDBSelect * _Nonnull )select;
 
-+(LKDBSelect * _Nonnull )select:(NSString * _Nullable)propName,...;
++(LKDBSelect * _Nonnull )select:(NSArray * _Nullable)propNames;
 
 +(LKDBDelete * _Nonnull )delete;
 
