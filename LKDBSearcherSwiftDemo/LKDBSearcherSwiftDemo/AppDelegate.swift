@@ -35,11 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         obj.name = "1212";
         obj.saveToDB();
         
+         
         
         let obj2 = (LKDBSQLite.select().from(TestObj.classForCoder()).where(LKDB_Equal_String("name", "1212")).order(by: "rowid", ascending: false).querySingle()) as! TestObj;
         
         print(obj2.rowid);
-        
+         
        let students = (LKDBSQLite.select().from(TestObj.classForCoder()).where(LKDB_Equal_String("name", "1212")).queryList()) as! [TestObj];
         
         for student:TestObj in students{

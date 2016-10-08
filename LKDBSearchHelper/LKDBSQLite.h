@@ -16,6 +16,8 @@
 
 +(LKDBSelect * _Nonnull )select;
 
++(LKDBSelect * _Nonnull )select:(NSString * _Nullable)propName,...;
+
 +(LKDBDelete * _Nonnull )delete;
 
 +(LKDBTransaction * _Nonnull )transaction;

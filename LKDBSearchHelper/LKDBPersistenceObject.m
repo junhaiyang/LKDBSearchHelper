@@ -238,19 +238,19 @@ static BOOL openFieldValidate_Flag = false;
 }
 
 + (id _Nonnull)loadByRowid:(NSInteger)_rowid{
-    return [[[[LKDBSQLite select] from:[self class]] Where:LKDB_Equal_Int(@"rowid", _rowid)] querySingle];
+    return [[[[LKDBSQLite select:nil] from:[self class]] Where:LKDB_Equal_Int(@"rowid", _rowid)] querySingle];
 }
 
 - (id _Nonnull)reload{
-    return [[[[LKDBSQLite select] from:[self class]] Where:LKDB_Equal_Int(@"rowid", self.rowid)] querySingle];
+    return [[[[LKDBSQLite select:nil] from:[self class]] Where:LKDB_Equal_Int(@"rowid", self.rowid)] querySingle];
 }
 
 + (NSArray *   _Nonnull )listAll{
-    return [[[LKDBSQLite select] from:[self class]] queryList];
+    return [[[LKDBSQLite select:nil] from:[self class]] queryList];
 }
 
 + (int)count{
-    return  [[[LKDBSQLite select] from:[self class]] queryCount];
+    return  [[[LKDBSQLite select:nil] from:[self class]] queryCount];
 }
 
 - (int)saveToDB{

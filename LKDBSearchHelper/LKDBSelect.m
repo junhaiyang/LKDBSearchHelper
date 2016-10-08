@@ -5,7 +5,9 @@
 
 #import "LKDBHelper.h" 
 
-
+extern NSString* _Nonnull  LKDB_Distinct(NSString * _Nonnull name){
+    return [@"DISTINCT " stringByAppendingString:name];
+}
 @interface LKDBHelper(LKDBSelect)
  
 
@@ -85,12 +87,14 @@
     BOOL selectCount;
     
     LKDBHelper *  _Nonnull helper;
+    
+    NSMutableArray<NSString *> *  _Nonnull propNames;
 }
 
 @end
 
 @implementation LKDBSelect
--(instancetype _Nonnull)init{
+-(instancetype _Nonnull)init:(NSArray * _Nullable)propName{
     
     self = [super init];
     if (self) {
@@ -98,6 +102,11 @@
         
         groupByList =[NSMutableArray new];
         orderByList =[NSMutableArray new];
+        
+        propNames =[NSMutableArray new];
+        
+        if(propName)
+            [propNames addObjectsFromArray:propName];
         
         limit = -1;
         offset = -1;
@@ -146,9 +155,9 @@
 
 -(instancetype _Nonnull)orderBy:(NSString *  _Nonnull)orderBy ascending:(BOOL)ascending{
     if(ascending){
-        [orderByList addObject:[NSString stringWithFormat:@"%@ asc",orderBy]];
+        [orderByList addObject:[NSString stringWithFormat:@"%@ ASC",orderBy]];
     }else{
-        [orderByList addObject:[NSString stringWithFormat:@"%@ desc",orderBy]];
+        [orderByList addObject:[NSString stringWithFormat:@"%@ DESC",orderBy]];
     } 
     return self;
 }
@@ -169,12 +178,21 @@
 
 -(NSString *  _Nonnull )executeSQL{
     
-    NSMutableString * _Nullable sql =[NSMutableString new];
-    if(selectCount){
-        [sql appendString:@"SELECT COUNT(*) as count  FROM "];
-    }else{
-        [sql appendString:@"SELECT *  FROM "];
+    NSString * _Nullable select = @"*";
+    if(propNames.count>0){
+        select = [propNames componentsJoinedByString:@","];
     }
+    
+    NSMutableString * _Nullable sql =[NSMutableString new];
+    [sql appendString:@"SELECT "];
+    if(selectCount){
+        [sql appendString:@"COUNT("];
+        [sql appendString:select];
+        [sql appendString:@") as count"];
+    }else{
+        [sql appendString:select];
+    }
+    [sql appendString:@" FROM "];
     
     [sql appendString:[_fromtable getTableName]];
     

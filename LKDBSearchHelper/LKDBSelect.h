@@ -6,9 +6,12 @@
 #import "LKDBPersistenceObject.h"
 
 
+
+extern NSString* _Nonnull  LKDB_Distinct(NSString * _Nonnull name);
+
 @interface LKDBSelect : NSObject
 
--(instancetype  _Nonnull)init;
+-(instancetype  _Nonnull)init:(NSArray * _Nullable)propName;
 
 -(instancetype  _Nonnull)from:(__unsafe_unretained Class  _Nonnull)fromtable;
  

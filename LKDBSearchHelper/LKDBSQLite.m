@@ -19,7 +19,30 @@ static BOOL openFieldValidate_Flag = false;
 }
 
 +(LKDBSelect * _Nonnull )select{
-    return [[LKDBSelect alloc] init];
+    return [[LKDBSelect alloc] init:nil];
+}
++(LKDBSelect * _Nonnull )select:(NSString * _Nullable)propName,...{
+    va_list args;
+    va_start(args, propName);
+    
+    NSMutableArray *propNames = [NSMutableArray new];
+    if (propName)
+    {
+        
+        NSString * otherString;
+        while (1)//在循环中遍历
+        {
+            //依次取得所有参数
+            otherString = va_arg(args, NSString *);
+            if(otherString == nil)//当最后一个参数为nil的时候跳出循环
+                break;
+            else{
+                [propNames addObject:otherString];
+            }
+        }
+    }
+    va_end(args);
+    return [[LKDBSelect alloc] init:propNames];
 }
 +(LKDBDelete * _Nonnull )delete{
     return [[LKDBDelete alloc] init];
