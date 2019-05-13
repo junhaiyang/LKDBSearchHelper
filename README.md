@@ -18,13 +18,16 @@
 
 #####引用
 
+```ruby
 	source 'https://github.com/CocoaPods/Specs.git'
 	source 'https://github.com/junhaiyang/Specs.git'
 	 
     pod 'LKDBSearchHelper', '~> 1.3'
+```
 
 #####表例子(OC)
 
+```objective-c
 		
 	#import "LKDBSearchHelper.h"
 	
@@ -45,9 +48,11 @@
 	}
 	
 	@end
+```
 	
 #####表例子(Swift)
  
+```swift
 	import LKDBSearchHelper
 	
 	class TestObj: LKDBPersistenceObject {
@@ -63,10 +68,12 @@
         return ["myname"];  //忽略不存库
     }
 }
+```
 	
 #####Model操作例子
 	
-	
+
+```objective-c
     //保存
      TestObj *new_obj =[TestObj new];
      new_obj =@"1212";
@@ -83,10 +90,12 @@
     
     //删除表
      [TestObj dropToDB];
+```
 	
 #####查询条件例子
 
 
+```objective-c
     //生成查询，基本定义了几种类型
     
     // SELECT* FROM TestObj WHERE name='11122' AND key=123
@@ -142,12 +151,12 @@
     
      //查询单个结果
     TestObj *obj =[select querySingle];
-    
+```
      
      
 #####删除条件使用例子
 
-
+```objective-c
     //生成删除条件，基本定义了几种类型
     
     // DELETE FROM TestObj WHERE name='11122' AND key=123
@@ -192,13 +201,14 @@
      //执行删除
      [deleteQuery execute]; 
     
-    
+```
     
     
      
 #####事物操作例子
 	
 	
+```objective-c
      //事物操作
     [LKDBSQLite executeForTransaction:^BOOL(void) {
         
@@ -206,9 +216,12 @@
         
         return YES; //YES 为提交事务，NO 取消事务
     }];
-    
+```
+
     或
+    
      
+```objective-c
      //事物操作
     [[LKDBSQLite transaction] executeForTransaction:^BOOL(void) {
         
@@ -216,9 +229,11 @@
         
         return YES; //YES 为提交事务，NO 取消事务
     }];
+```
     
     model直接操作
     
+```objective-c
     LKDBTransaction * transaction = [LKDBSQLite transaction];
     
     [[[transaction  update:obj]  insert:obj]  delete:obj];
@@ -228,13 +243,13 @@
     [transaction  deleteAll:objs];
     
     [transaction execute];  //会严格按照操作调用顺序执行
-     
+```
     
     
 #####条件说明
 
-		
-		
+
+```
 	//基本条件语句
 
 	//条件等于
@@ -285,3 +300,4 @@
 
 	//基本条件
 	LKDB_Condition(name,operation,value)    //value 是String ，如果是处理字符串 得加上单引号和转义,数字类型就直接生成String 就可以    
+```
