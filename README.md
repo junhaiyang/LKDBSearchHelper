@@ -2,12 +2,12 @@
 
 
 
-#####说明
+#### #说明
 * 鉴于移动端不应该存在过于复杂的查询 暂时不支持 have ， join  语法
 * 支持 Swift & OC 使用
 * 全面支持 NSArray,NSDictionary, ModelClass, NSNumber, NSString, NSDate, NSData, UIColor, UIImage, CGRect, CGPoint, CGSize, NSRange, int,char,float, double, long.. 等属性的自动化操作(插入和查询)
 
-####Requirements
+### #Requirements
 
 * iOS 7.0+
 * ARC only 
@@ -16,7 +16,7 @@
 
 
 
-#####引用
+#### #引用
 
 ```ruby
 	source 'https://github.com/CocoaPods/Specs.git'
@@ -25,7 +25,7 @@
     pod 'LKDBSearchHelper', '~> 1.3'
 ```
 
-#####表例子(OC)
+#### #表例子(OC)
 
 ```objective-c
 		
@@ -50,7 +50,7 @@
 	@end
 ```
 	
-#####表例子(Swift)
+#### #表例子(Swift)
  
 ```swift
 	import LKDBSearchHelper
@@ -70,7 +70,7 @@
 }
 ```
 	
-#####Model操作例子
+#### #Model操作例子
 	
 
 ```objective-c
@@ -92,7 +92,7 @@
      [TestObj dropToDB];
 ```
 	
-#####查询条件例子
+#### #查询条件例子
 
 
 ```objective-c
@@ -154,7 +154,7 @@
 ```
      
      
-#####删除条件使用例子
+#### #删除条件使用例子
 
 ```objective-c
     //生成删除条件，基本定义了几种类型
@@ -205,7 +205,7 @@
     
     
      
-#####事物操作例子
+#### #事物操作例子
 	
 	
 ```objective-c
@@ -246,7 +246,7 @@
 ```
     
     
-#####条件说明
+#### #条件说明
 
 
 ```
