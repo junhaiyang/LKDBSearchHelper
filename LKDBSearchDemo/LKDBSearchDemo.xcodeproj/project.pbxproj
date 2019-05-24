@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		2C12CB4B1D805E2200261678 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C12CB4A1D805E2200261678 /* main.m */; };
 		2C12CB4E1D805E2200261678 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C12CB4D1D805E2200261678 /* AppDelegate.m */; };
-		2C12CB511D805E2200261678 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C12CB501D805E2200261678 /* ViewController.m */; };
-		2C12CB541D805E2200261678 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CB521D805E2200261678 /* Main.storyboard */; };
 		2C12CB561D805E2200261678 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CB551D805E2200261678 /* Assets.xcassets */; };
 		2C12CB591D805E2200261678 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C12CB571D805E2200261678 /* LaunchScreen.storyboard */; };
 		756D2979EA83DB2BABF7C9D2 /* libPods-LKDBSearchDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F2F8FD4E0224F25C4F6F9E /* libPods-LKDBSearchDemo.a */; };
+		B61E1DFA2298225800D34103 /* LKTestModels.m in Sources */ = {isa = PBXBuildFile; fileRef = B61E1DF92298225800D34103 /* LKTestModels.m */; };
+		B61E1DFD229822CE00D34103 /* FMDatabase+Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = B61E1DFC229822CD00D34103 /* FMDatabase+Debug.m */; };
+		B61E1E242298234400D34103 /* LKDBSQLBuilderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B61E1E232298234400D34103 /* LKDBSQLBuilderTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,15 +24,18 @@
 		2C12CB4A1D805E2200261678 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C12CB4C1D805E2200261678 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C12CB4D1D805E2200261678 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2C12CB4F1D805E2200261678 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2C12CB501D805E2200261678 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		2C12CB531D805E2200261678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C12CB551D805E2200261678 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C12CB581D805E2200261678 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C12CB5A1D805E2200261678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66273C95DEE16F3A58EDD122 /* Pods-LKDBSearchDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKDBSearchDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-LKDBSearchDemo/Pods-LKDBSearchDemo.release.xcconfig"; sourceTree = "<group>"; };
 		67A80C2409E67480F330D6BD /* Pods-LKDBSearchDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKDBSearchDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LKDBSearchDemo/Pods-LKDBSearchDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		AF47531B0342249A12B69DFD /* Pods-LKDBSearchDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LKDBSearchDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-LKDBSearchDemo/Pods-LKDBSearchDemo.release.xcconfig"; sourceTree = "<group>"; };
+		B61E1DF82298225800D34103 /* LKTestModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKTestModels.h; sourceTree = "<group>"; };
+		B61E1DF92298225800D34103 /* LKTestModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKTestModels.m; sourceTree = "<group>"; };
+		B61E1DFB229822CD00D34103 /* FMDatabase+Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+Debug.h"; sourceTree = "<group>"; };
+		B61E1DFC229822CD00D34103 /* FMDatabase+Debug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+Debug.m"; sourceTree = "<group>"; };
+		B61E1E222298234400D34103 /* LKDBSQLBuilderTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKDBSQLBuilderTest.h; sourceTree = "<group>"; };
+		B61E1E232298234400D34103 /* LKDBSQLBuilderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKDBSQLBuilderTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,11 +82,14 @@
 		2C12CB481D805E2200261678 /* LKDBSearchDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B61E1E222298234400D34103 /* LKDBSQLBuilderTest.h */,
+				B61E1E232298234400D34103 /* LKDBSQLBuilderTest.m */,
+				B61E1DF82298225800D34103 /* LKTestModels.h */,
+				B61E1DF92298225800D34103 /* LKTestModels.m */,
+				B61E1DFB229822CD00D34103 /* FMDatabase+Debug.h */,
+				B61E1DFC229822CD00D34103 /* FMDatabase+Debug.m */,
 				2C12CB4C1D805E2200261678 /* AppDelegate.h */,
 				2C12CB4D1D805E2200261678 /* AppDelegate.m */,
-				2C12CB4F1D805E2200261678 /* ViewController.h */,
-				2C12CB501D805E2200261678 /* ViewController.m */,
-				2C12CB521D805E2200261678 /* Main.storyboard */,
 				2C12CB551D805E2200261678 /* Assets.xcassets */,
 				2C12CB571D805E2200261678 /* LaunchScreen.storyboard */,
 				2C12CB5A1D805E2200261678 /* Info.plist */,
@@ -169,7 +176,6 @@
 			files = (
 				2C12CB591D805E2200261678 /* LaunchScreen.storyboard in Resources */,
 				2C12CB561D805E2200261678 /* Assets.xcassets in Resources */,
-				2C12CB541D805E2200261678 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,23 +237,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C12CB511D805E2200261678 /* ViewController.m in Sources */,
+				B61E1DFA2298225800D34103 /* LKTestModels.m in Sources */,
 				2C12CB4E1D805E2200261678 /* AppDelegate.m in Sources */,
 				2C12CB4B1D805E2200261678 /* main.m in Sources */,
+				B61E1DFD229822CE00D34103 /* FMDatabase+Debug.m in Sources */,
+				B61E1E242298234400D34103 /* LKDBSQLBuilderTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2C12CB521D805E2200261678 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2C12CB531D805E2200261678 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2C12CB571D805E2200261678 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
