@@ -22,7 +22,7 @@
 }
 
 + (void)test {
-    LKSQLCompositeCondition *cond = nil;
+    LKSQLCompositeCondition *cond;
     
     DEBUGLOG(@"### RUNNING TEST <%@>\n=================", self);
     
@@ -56,7 +56,7 @@
     cond = LKSQLCompositeCondition.clause.where.isNot(@"colA", @"0.000000000001");
     DEBUGLOG(@"%@", cond.toString);
     // inStr
-    cond = LKSQLCompositeCondition.clause.where.inStrs(@"colA", @[@"val1", @"val2", @"val2"]);
+    cond = LKSQLCompositeCondition.clause.where.inStrs(@"colA", @[@"str1", @"str2", @"str3"]);
     DEBUGLOG(@"%@", cond.toString);
     // inNum
     cond = LKSQLCompositeCondition.clause.where.inNums(@"colA", @[@1, @2, @3]);
@@ -81,7 +81,7 @@
     //MARK: TEST condition group
     // AND, OR
     DEBUGLOG(@"#TEST AND, OR");
-    cond = LKSQLCompositeCondition.clause.where
+    cond = _SQLWhere
     .eq(@"colA", nil)
     .neq(@"colB", nil)
     .lt(@"colC", nil)
@@ -107,11 +107,11 @@
     
     // matchAll
     DEBUGLOG(@"#TEST matchAll");
-    cond = LKSQLCompositeCondition.clause.where.eq(@"colA", nil).matchAll(
+    cond = _SQLWhere.eq(@"colA", nil).matchAll(
         @[
-          LKSQLCompositeCondition.clause.where.eq(@"colA", nil).neq(@"colAA", nil),
-          LKSQLCompositeCondition.clause.where.eq(@"colB", nil).neq(@"colBA", nil),
-          LKSQLCompositeCondition.clause.where.eq(@"colC", nil).neq(@"colCA", nil),
+          _SQLWhere.eq(@"colA", nil).neq(@"colAA", nil),
+          _SQLWhere.eq(@"colB", nil).neq(@"colBA", nil),
+          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil),
           ]
     )
     .and.lte(@"colD", nil)
@@ -122,13 +122,13 @@
     
     // matchAny
     DEBUGLOG(@"#TEST matchAny");
-    cond = LKSQLCompositeCondition.clause.where.eq(@"colA", nil).matchAny(
-                                                                     @[
-                                                                       LKSQLCompositeCondition.clause.where.eq(@"colA", nil).neq(@"colAA", nil),
-                                                                       LKSQLCompositeCondition.clause.where.eq(@"colB", nil).neq(@"colBA", nil),
-                                                                       LKSQLCompositeCondition.clause.where.eq(@"colC", nil).neq(@"colCA", nil),
-                                                                       ]
-                                                                     )
+    cond = _SQLWhere.eq(@"colA", nil).matchAny(
+        @[
+          _SQLWhere.eq(@"colA", nil).neq(@"colAA", nil),
+          _SQLWhere.eq(@"colB", nil).neq(@"colBA", nil),
+          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil),
+          ]
+    )
     .and.lte(@"colD", nil)
     .or.eq(@"colA", nil)
     .and.lte(@"colC", nil)
@@ -137,9 +137,9 @@
     
     // nested condition
     DEBUGLOG(@"#TEST nested condition");
-    cond = LKSQLCompositeCondition.clause.where.eq(@"colA", nil).and.expr(
-        LKSQLCompositeCondition.clause.where.eq(@"colAA", nil).or.neq(@"colAB", nil).and.expr(
-            LKSQLCompositeCondition.clause.where.eq(@"colAAA", nil).or.neq(@"colAAB", nil)
+    cond = _SQLWhere.eq(@"colA", nil).and.expr(
+        _SQLWhere.eq(@"colAA", nil).or.neq(@"colAB", nil).and.expr(
+            _SQLWhere.eq(@"colAAA", nil).or.neq(@"colAAB", nil)
             // ...endless nested conditon
         )
     )
@@ -155,6 +155,11 @@
         _SQLWhere.eq(@"MyAge", @"16")
     ).orderBy(nil).groupBy(nil).limit(0).offset(0);
     DEBUGLOG(@"## %@", select.toString);
+    
+    
+    _SQLSelect.from(LKTest.class).where(
+                                        _SQLWhere.eq(@"MyAge", @"16")
+                                        ).orderBy(nil).groupBy(nil).limit(0).offset(0).exec();
     
     LKSQLDelete *delete = (id)_SQLDelete.from(LKTest.class).where(
         _SQLWhere.eq(@"MyAge", @"16")

@@ -1,11 +1,13 @@
 # LKDBSearchHelper
 
 
-
 #### #说明
-* 鉴于移动端不应该存在过于复杂的查询 暂时不支持 have ， join  语法
-* 支持 Swift & OC 使用
-* 全面支持 NSArray,NSDictionary, ModelClass, NSNumber, NSString, NSDate, NSData, UIColor, UIImage, CGRect, CGPoint, CGSize, NSRange, int,char,float, double, long.. 等属性的自动化操作(插入和查询)
+* 鉴于移动端通常没有过于复杂的查询, 支持的 SQL 语义为: 
+  * `select`, `delete`, `where`, `orderBy`, `groupBy`, `limit`, `offset`, `or`,`and`
+  * 绝大部分 比较运算符 (排除 between, exists 之类)
+* 支持 `where` 条件嵌套
+* v2.0 +链式语法糖
+
 
 ### #Requirements
 
@@ -15,289 +17,127 @@
 * LKDBHelper-SQLite-ORM([https://github.com/li6185377/LKDBHelper-SQLite-ORM](https://github.com/li6185377/LKDBHelper-SQLite-ORM))
 
 
-
 #### #引用
 
-```ruby
-	source 'https://github.com/CocoaPods/Specs.git'
-	source 'https://github.com/junhaiyang/Specs.git'
-	 
-    pod 'LKDBSearchHelper', '~> 1.3'
+```ruby	 
+    pod 'LKDBSearchHelper', '~> 2.0'
 ```
 
-#### #表例子(OC)
 
-```objective-c
-		
-	#import "LKDBSearchHelper.h"
-	
-	@interface TestObj:LKDBPersistenceObject
-	
-	@property (nonatomic,strong) NSString *name;
-	@property (nonatomic,assign) int key;
-	@property (nonatomic,strong) NSString *ads;
-	
-	@end
-	
-	
-	@implementation TestObj
-	
-	
-	+ (NSArray *)transients{
-		return @[@"ads"];  //忽略不存库
-	}
-	
-	@end
-```
-	
-#### #表例子(Swift)
- 
-```swift
-	import LKDBSearchHelper
-	
-	class TestObj: LKDBPersistenceObject {
-    var name:NSString = "" ;
-    var ads:NSString = "" ;
-    
-    //此方法必须实现，定义表名
-    static func getTableName() -> String {
-        return "TestObj"
-    }
-    
-    open override class func transients() -> [Any] {
-        return ["myname"];  //忽略不存库
-    }
-}
-```
-	
-#### #Model操作例子
-	
-
-```objective-c
-    //保存
-     TestObj *new_obj =[TestObj new];
-     new_obj =@"1212";
-     [new_obj saveToDB];
-     
-    //更新：被更新的对象必须是通过查询得到的
-     TestObj *obj =[select querySingle];
-     obj.name =@"1212";
-     [obj updateToDB];
-     
-    //删除：被删除的对象必须是通过查询得到的
-     TestObj *obj =[select querySingle];
-     [obj deleteToDB];
-    
-    //删除表
-     [TestObj dropToDB];
-```
-	
-#### #查询条件例子
+#### #SQL `where` condition builder
 
 
 ```objective-c
-    //生成查询，基本定义了几种类型
-    
-    // SELECT* FROM TestObj WHERE name='11122' AND key=123
-   	LKDBSelect *select = [[[[LKDBSQLite select] from:[TestObj class]]
-      where:LKDB_NotEqual_String(@"name",@"11122")]
-    and:LKDB_NotEqual_Int(@"key", 123)]
-                         ;
-    
-    NSLog(@"%@",[select getQuery]);
-    
-    
-    // OR name='ssss' 
-    [select or:LKDB_Equal_String(@"name", @"ssss")];
-    
-    NSLog(@"%@",[select getQuery]);
-                               
-    
-    //生成一个AND包含条件: AND ( ...... ) 格式
-    LKDBConditionGroup *andConditionGroup =[select innerAndConditionGroup];
-    
-    //  AND ( key=3322 OR key=8899 ) 
-    [[innerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
-      or:LKDB_Equal_Int(@"key", 8899)]];
-      
-    //再生成一个 OR 包含条件: OR ( ...... ) 格式
-    LKDBConditionGroup *orConditionGroup =[select innerOrConditionGroup];
-    
-    //  OR ( key=3322 OR key=8899 ) 
-    [[innerOrConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
-      or:LKDB_Equal_Int(@"key", 8899)]];
-      
-      
-    //在包含条件里面再生成一个 OR 包含条件: OR ( ...... ) 格式
-    LKDBConditionGroup *innerOrConditionGroup2 =[innerOrConditionGroup innerOrConditionGroup];
-    
-    //  OR ( key=3322 OR key=8899 ) 
-    [[innerOrConditionGroup2 where:LKDB_Equal_Int(@"key", 3322)]
-      or:LKDB_Equal_Int(@"key", 8899)]];
-    
-    NSLog(@"%@",[select getQuery]);
-    
-    //最小结果 结果偏移
-    // LIMIT 5,5 
-    [[select offset:5] limit:5];
-    
-    NSLog(@"%@",[select getQuery]); 
-    
-     //查询总数
-    int count =[select queryCount];
-    
-     //查询多个结果
-    NSArray* list = [select queryList];
-    
-     //查询单个结果
-    TestObj *obj =[select querySingle];
+    LKSQLCompositeCondition *cond;
+
+    // single condition
+    cond = LKSQLCompositeCondition.clause.where.eq(@"colA", @0.0000001);
+    cond = LKSQLCompositeCondition.clause.where.like(@"colA", @"0.1");
+    cond = LKSQLCompositeCondition.clause.where.inStrs(@"colA", @[@"str1", @"str2", @"str3"]);
+    cond = LKSQLCompositeCondition.clause.where.inNums(@"colA", @[@1, @2, @3]);
+    // use `nil` for SQLite `null`
+    cond = LKSQLCompositeCondition.clause.where.eq(@"colA", nil);
+
+    // multi condition  ( operator `and` can be omitted 
+    cond = LKSQLCompositeCondition.clause
+    .where
+    .eq(@"colA", nil)
+    .or.neq(@"colB", nil)
+    .lt(@"colC", nil)
+    .and.lte(@"colD", nil)
+    .gt(@"colE", nil)
+    .or.gte(@"colF", nil)
+    .like(@"colG", nil) // 
+    .or.isNot(@"colH", nil)
+    .inStrs(@"colI", nil)
+    .or.inNums(@"colJ", nil);
+
+    // Too Long? Let's use some eye candy
+    #define _SQLWhere LKSQLCompositeCondition.clause
+    #define _SQLSelect LKSQLSelect.clause
+    #define _SQLDelete LKSQLDelete.clause
+
+    // Note that `.where` is a candy, it just return `self`. so we omitted it in the macro above to save a method calling
+
+    // now continue...
+
+    // match All
+    cond = _SQLWhere.eq(@"colA", nil).matchAll(
+        @[
+          _SQLWhere.eq(@"colA", nil).neq(@"colAA", nil),
+          _SQLWhere.eq(@"colB", nil).neq(@"colBA", nil),
+          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil),
+          ]
+    );
+
+    // match Any
+    cond = _SQLWhere.eq(@"colA", nil).matchAny(
+        @[
+          _SQLWhere.eq(@"colA", nil).neq(@"colAA", nil),
+          _SQLWhere.eq(@"colB", nil).neq(@"colBA", nil),
+          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil),
+          ]
+    );
+
+    // nested condition
+    cond = _SQLWhere.eq(@"colA", nil).and.expr(
+        _SQLWhere.eq(@"colAA", nil).or.neq(@"colAB", nil).and.expr(
+            _SQLWhere.eq(@"colAAA", nil).or.neq(@"colAAB", nil)
+            // allow endless nested conditon if you can ...
+        )
+    )
+    .and.lte(@"colB", nil)
 ```
      
      
-#### #删除条件使用例子
+#### #SQL Command
 
 ```objective-c
-    //生成删除条件，基本定义了几种类型
-    
-    // DELETE FROM TestObj WHERE name='11122' AND key=123
-   	LKDBDelete *deleteQuery = [[[[LKDBSQLite delete] from:[TestObj class]]
-      where:LKDB_NotEqual_String(@"name",@"11122")]
-    and:LKDB_NotEqual_Int(@"key", 123)]
-                         ;
-    
-    NSLog(@"%@",[deleteQuery getQuery]);
-    
-    
-    // OR name='ssss' 
-    [deleteQuery or:LKDB_Equal_String(@"name", @"ssss")];
-    
-    NSLog(@"%@",[deleteQuery getQuery]);
-                               
-    
-    //生成一个AND包含条件: AND ( ...... ) 格式
-    LKDBConditionGroup *andConditionGroup =[deleteQuery innerAndConditionGroup];
-    
-    //  AND ( key=3322 OR key=8899 ) 
-    [[innerAndConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
-      or:LKDB_Equal_Int(@"key", 8899)]];
-      
-    //再生成一个 OR 包含条件: OR ( ...... ) 格式
-    LKDBConditionGroup *orConditionGroup =[select innerOrConditionGroup];
-    
-    //  OR ( key=3322 OR key=8899 ) 
-    [[innerOrConditionGroup where:LKDB_Equal_Int(@"key", 3322)]
-      or:LKDB_Equal_Int(@"key", 8899)]];
-      
-      
-    //在包含条件里面再生成一个 OR 包含条件: OR ( ...... ) 格式
-    LKDBConditionGroup *innerOrConditionGroup2 =[innerOrConditionGroup innerOrConditionGroup];
-    
-    //  OR ( key=3322 OR key=8899 ) 
-    [[innerOrConditionGroup2 where:LKDB_Equal_Int(@"key", 3322)]
-      or:LKDB_Equal_Int(@"key", 8899)]];
-    
-    NSLog(@"%@",[deleteQuery getQuery]);  
-    
-     //执行删除
-     [deleteQuery execute]; 
-    
-```
-    
-    
-     
-#### #事物操作例子
-	
-	
-```objective-c
-     //事物操作
-    [LKDBSQLite executeForTransaction:^BOOL(void) {
-        
-        [[LKDBSQLite select] from:[TestObj class]] .........
-        
-        return YES; //YES 为提交事务，NO 取消事务
-    }];
+    // SQL: Select
+    // exec SQL using `LKDBHelper` according to the class passed in `from()`, 
+    // which in this case, would be `LKTest` 
+    _SQLSelect.from(LKTest.class).where(
+        _SQLWhere.eq(@"MyAge", @"16")
+    ).orderBy(nil).groupBy(nil).limit(0).offset(0).exec();
+
+
+    // BTW, you can specify `LKDBHelper` if `exec()` not fitting your project scheme
+    _SQLSelect.from(LKTest.class).where(
+      _SQLWhere.eq(@"MyAge", @"16")
+      ).orderBy(nil).groupBy(nil).limit(0).offset(0).execIn(_get_using_LKDBHelper_from_somewhere_);
+
+
+    // SQL: Delete
+    _SQLDelete.from(LKTest.class).where(
+        _SQLWhere.eq(@"MyAge", @"16")
+    ).exec();
+
 ```
 
-    或
+
+#### #SQL Debug Print
+
+`LKSQLSelect` &
+`LKSQLDelete` &
+`LKSQLCondition` &
+`LKSQLCompositeCondition`  all these object could be printed using `- toString`
+
+Also, you can use `FMDatabase+Debug.h` in the DEMO project which intercepting FMDB SQL execution to do same thing ( But NOT full implemented
     
-     
-```objective-c
-     //事物操作
-    [[LKDBSQLite transaction] executeForTransaction:^BOOL(void) {
-        
-        [[LKDBSQLite select] from:[TestObj class]] .........
-        
-        return YES; //YES 为提交事务，NO 取消事务
-    }];
-```
-    
-    model直接操作
+
+#### #Transaction
     
 ```objective-c
-    LKDBTransaction * transaction = [LKDBSQLite transaction];
+    LKDBTransaction *transaction = [LKDBSQLite transaction];
     
-    [[[transaction  update:obj]  insert:obj]  delete:obj];
+    [transaction update:obj]; // mark obj as `to be update`
+    [transaction insert:obj]; // mark obj as `to be insert` 
+    [transaction delete:obj]; // mark obj as `to be delete` 
     
-    [transaction  updateAll:objs];
-    [transaction  insertAll:objs];
-    [transaction  deleteAll:objs];
+    [transaction batchUpdate:objArr];
+    [transaction batchInsert:objArr];
+    [transaction batchDelete:objArr];
     
-    [transaction execute];  //会严格按照操作调用顺序执行
+    [transaction execute]; // handle marked object above in transaction
 ```
     
-    
-#### #条件说明
-
-
-```
-	//基本条件语句
-
-	//条件等于
-	LKDB_Equal_String(name,value)   
- 	LKDB_Equal_Int(name,value)     
-	LKDB_Equal_Float(name,value)        
-
-
-
-	//条件不等于
-	LKDB_NotEqual_String(name,value)    
-	LKDB_NotEqual_Int(name,value)        
-	LKDB_NotEqual_Float(name,value)     
-
-
-
-	//字符串 IS NOT
-	LKDB_IsNot_String(name,value)     
-	//字符串LIKE
-	LKDB_LIKE_String(name,value)         
-
-	//条件小于
-	LKDB_LessThan_String(name,value)   
-	LKDB_LessThan_Int(name,value)        
-	LKDB_LessThan_Float(name,value)    
-
-	//条件大于
-	LKDB_GreaterThan_String(name,value)        
-	LKDB_GreaterThan_Int(name,value)      
-	LKDB_GreaterThan_Float(name,value)       
-
-	//条件小于等于
-	LKDB_LessAndEqualThan_String(name,value) 
-	LKDB_LessAndEqualThan_Int(name,value)            
-	LKDB_LessAndEqualThan_Float(name,value)    
-
-	//条件大于等于
-	LKDB_GreaterAndEqualThan_String(name,value)             
-	LKDB_GreaterAndEqualThan_Int(name,value)           
-	LKDB_GreaterAndEqualThan_Float(name,value)         
-	                  
-
-	//IN条件 
-	LKDB_IN_String(name,values)    
-	LKDB_IN_Int(name,values)   
-	
-	
-
-	//基本条件
-	LKDB_Condition(name,operation,value)    //value 是String ，如果是处理字符串 得加上单引号和转义,数字类型就直接生成String 就可以    
-```
