@@ -1,11 +1,7 @@
-//
-//  LKSQLCommand.m
-//  iOS-Demo
-//
-//  Copyright © 2019年 Mars. All rights reserved.
-//
+
 
 #import "LKSQLCommand.h"
+
 @interface LKSQLCommand ()
 @property (nonatomic, assign) NSInteger mLimit;
 @property (nonatomic, assign) NSInteger mOffset;

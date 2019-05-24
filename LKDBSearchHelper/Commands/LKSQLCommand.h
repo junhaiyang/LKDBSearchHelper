@@ -1,11 +1,7 @@
-//
-//  LKSQLCommand.h
-//  iOS-Demo
-//
-//  Copyright © 2019年 Mars. All rights reserved.
-//
+
 
 #import <Foundation/Foundation.h>
+
 @class LKSQLCondition, LKDBHelper;
 
 /* CRUD Base Class */
