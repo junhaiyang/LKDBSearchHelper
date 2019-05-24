@@ -207,7 +207,7 @@
         
         count++;
     }
-    return _query ? [_query toString] : @"";
+    return _query ? [_query toString].lowercaseString : @""; //workaround: LKDB require lowerCased SQL keywork
 }
 
 @end

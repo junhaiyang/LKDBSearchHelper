@@ -62,7 +62,7 @@
         [sql appendFormat:@" LIMIT %d OFFSET %ld", INT_MAX, (long)self.mOffset];
     }
     
-    return sql;
+    return [sql lowercaseString]; //workaround: LKDB require lowerCased SQL keywork
 }
 
 @end

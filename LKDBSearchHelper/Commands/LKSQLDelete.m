@@ -42,7 +42,7 @@
         [sql appendString:conditionQuery];
     }
     
-    return sql;
+    return [sql lowercaseString]; //workaround: LKDB require lowerCased SQL keywork
 }
 
 @end
