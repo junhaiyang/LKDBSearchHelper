@@ -105,6 +105,7 @@ typedef enum {
 }
 
 -(BOOL)execute{
+    __block BOOL success = NO;
     [[LKDBHelper getUsingLKDBHelper] executeForTransaction:^BOOL(LKDBHelper *helper) {
         @try {
             for (LKDBTransactionData * _Nonnull object in actionDatas) {
@@ -118,12 +119,14 @@ typedef enum {
                 if(object.action==LKDBPersistenceObjectActionRemove)
                     [object.object deleteToDB];
             }
-             
+            success = YES;
             return true;
         } @catch (NSException *exception) {
+            success = NO;
              return false;
         }
     }];
+    return success;
 }
 - (void)executeForTransaction:(BOOL (^_Nullable)(void))block{
     [[LKDBHelper getUsingLKDBHelper] executeForTransaction:^BOOL(LKDBHelper *helper) {
