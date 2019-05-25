@@ -5,6 +5,7 @@
 
 /* import header */
 
+#import "LKDBSQLConstant.h"
 // SQL commands
 #import "LKSQLSelect.h"
 #import "LKSQLDelete.h"

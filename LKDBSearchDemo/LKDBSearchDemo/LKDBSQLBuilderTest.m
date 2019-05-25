@@ -107,13 +107,13 @@
     
     // matchAll
     DEBUGLOG(@"#TEST matchAll");
-    cond = _SQLWhere.eq(@"colA", nil).matchAll(
-        @[
+    
+    
+    cond = _SQLWhere.eq(@"colA", nil).matchAll(@[
           _SQLWhere.eq(@"colA", nil).neq(@"colAA", nil),
           _SQLWhere.eq(@"colB", nil).neq(@"colBA", nil),
-          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil),
-          ]
-    )
+          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil)
+    ])
     .and.lte(@"colD", nil)
     .or.eq(@"colA", nil)
     .and.lte(@"colC", nil)
@@ -122,13 +122,11 @@
     
     // matchAny
     DEBUGLOG(@"#TEST matchAny");
-    cond = _SQLWhere.eq(@"colA", nil).matchAny(
-        @[
+    cond = _SQLWhere.eq(@"colA", nil).matchAny(@[
           _SQLWhere.eq(@"colA", nil).neq(@"colAA", nil),
           _SQLWhere.eq(@"colB", nil).neq(@"colBA", nil),
-          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil),
-          ]
-    )
+          _SQLWhere.eq(@"colC", nil).neq(@"colCA", nil)
+    ])
     .and.lte(@"colD", nil)
     .or.eq(@"colA", nil)
     .and.lte(@"colC", nil)
@@ -149,14 +147,16 @@
     ;
     DEBUGLOG(@"%@", cond.toString);
     
-    
+
+
     //MARK: TEST SQL commands
-    LKSQLSelect *select = (id)_SQLSelect.from(LKTest.class).where(
+    LKSQLSelect *select = (id)_SQLSelect(LKTest).where(
         _SQLWhere.eq(@"MyAge", @"16")
-    ).orderBy(@"MyAge").groupBy(@"MyAge").limit(0).offset(0);
+    ).orderBy(@[@"MyAge DESC", @"name ASC"])
+    .groupBy(@[@"MyAge", @"name"]).limit(0).offset(0);
     DEBUGLOG(@"##SQL>> %@", select.toString);
     
-    LKSQLDelete *delete = (id)_SQLDelete.from(LKTest.class).where(
+    LKSQLDelete *delete = (id)_SQLDelete(LKTest).where(
         _SQLWhere.eq(@"MyAge", @"16")
     );
     DEBUGLOG(@"##SQL>> %@", delete.toString);

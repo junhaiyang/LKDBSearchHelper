@@ -5,8 +5,6 @@
 
 /* Multi Condition Builder */
 
-#define _SQLWhere LKSQLCompositeCondition.clause
-
 @interface LKSQLCompositeCondition : LKSQLCondition
 
 + (instancetype)clause;
