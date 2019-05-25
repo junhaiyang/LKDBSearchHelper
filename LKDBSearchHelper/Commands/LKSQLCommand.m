@@ -32,18 +32,26 @@
     };
 }
 
-- (LKSQLCommand *(^)(NSArray *orderByList))orderBy
+- (LKSQLCommand *(^)(id orderBy))orderBy
 {
-    return ^id(NSArray *orderByList) {
-        self.orderByList = orderByList;
+    return ^id(id orderBy) {
+        if ([orderBy isKindOfClass:[NSArray class]]) {
+            self.orderByList = orderBy;
+        } else if ([orderBy isKindOfClass:[NSString class]]) {
+            self.orderByList = @[orderBy];
+        }
         return self;
     };
 }
 
-- (LKSQLCommand *(^)(NSArray *groupByList))groupBy
+- (LKSQLCommand *(^)(id groupBy))groupBy
 {
-    return ^id(NSArray *groupByList) {
-        self.groupByList = groupByList;
+    return ^id(id groupBy) {
+        if ([groupBy isKindOfClass:[NSArray class]]) {
+            self.groupByList = groupBy;
+        } else if ([groupBy isKindOfClass:[NSString class]]) {
+            self.groupByList = @[groupBy];
+        }
         return self;
     };
 }

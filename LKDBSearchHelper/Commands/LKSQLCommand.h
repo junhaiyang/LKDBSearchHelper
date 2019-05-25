@@ -11,8 +11,8 @@
 + (instancetype)clause;
 - (LKSQLCommand *(^)(Class tblClass))from;
 - (LKSQLCommand *(^)(LKSQLCondition *sqlCondition))where;
-- (LKSQLCommand *(^)(NSArray *orderByList))orderBy;
-- (LKSQLCommand *(^)(NSArray *groupByList))groupBy;
+- (LKSQLCommand *(^)(id orderBy))orderBy; // `NSString` or `NSArray<NSString *>`
+- (LKSQLCommand *(^)(id groupBy))groupBy; // `NSString` or `NSArray<NSString *>`
 - (LKSQLCommand *(^)(NSInteger limit))limit;
 - (LKSQLCommand *(^)(NSInteger offset))offset;
 
