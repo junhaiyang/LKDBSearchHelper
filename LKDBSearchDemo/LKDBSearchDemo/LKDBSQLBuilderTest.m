@@ -153,18 +153,13 @@
     //MARK: TEST SQL commands
     LKSQLSelect *select = (id)_SQLSelect.from(LKTest.class).where(
         _SQLWhere.eq(@"MyAge", @"16")
-    ).orderBy(nil).groupBy(nil).limit(0).offset(0);
-    DEBUGLOG(@"## %@", select.toString);
-    
-    
-    _SQLSelect.from(LKTest.class).where(
-                                        _SQLWhere.eq(@"MyAge", @"16")
-                                        ).orderBy(nil).groupBy(nil).limit(0).offset(0).exec();
+    ).orderBy(@"MyAge").groupBy(@"MyAge").limit(0).offset(0);
+    DEBUGLOG(@"##SQL>> %@", select.toString);
     
     LKSQLDelete *delete = (id)_SQLDelete.from(LKTest.class).where(
         _SQLWhere.eq(@"MyAge", @"16")
     );
-    DEBUGLOG(@"## %@", delete.toString);
+    DEBUGLOG(@"##SQL>> %@", delete.toString);
     
     // insert mock data
     [self.mockData saveToDB];
@@ -174,13 +169,13 @@
     [self.mockData saveToDB];
     
     // execute select
-    DEBUGLOG(@"DBPath: %@", [[LKTest getUsingLKDBHelper] valueForKey:@"dbPath"]);
-    DEBUGLOG(@"## RUNNING %@", select.toString);
+    DEBUGLOG(@"## DB path: %@", [[LKTest getUsingLKDBHelper] valueForKey:@"dbPath"]);
+    DEBUGLOG(@"## %@", select.toString);
     NSArray *res = (id)select.exec();
     DEBUGLOG(@"## count: %ld", res.count);
     
     // execute delete
-    DEBUGLOG(@"## RUNNING %@", delete.toString);
+    DEBUGLOG(@"## %@", delete.toString);
     delete.exec();
     DEBUGLOG(@"## count: %ld", [LKTest searchWithWhere:nil].count);
     
