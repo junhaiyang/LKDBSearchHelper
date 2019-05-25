@@ -1,5 +1,6 @@
 
 
+#import "LKDBSQLConstant.h"
 #import "LKSQLSelect.h"
 #import "LKSQLCompositeCondition.h"
 #import <LKDBHelper.h>
@@ -27,42 +28,42 @@
 - (NSString * )toString{
     NSString * colunms = @"*";
     NSMutableString * sql = [NSMutableString string];
-    [sql appendString:@"SELECT "];
+    [sql appendString:LKSQL_SELECT@" "];
     if(self.countOnly){
-        [sql appendString:@"COUNT("];
+        [sql appendString:LKSQL_COUNT@"("];
         [sql appendString:colunms];
         [sql appendString:@") as count"];
     }else{
         [sql appendString:colunms];
     }
     
-    [sql appendString:@" FROM "];
+    [sql appendString:@" "LKSQL_FROM@" "];
     [sql appendString:[self.tblClass getTableName]];
     [sql appendString:@" "];
     
     NSString *conditionQuery = [self.conditionGroup toString];
     if(self.conditionGroup && conditionQuery.length > 0){
-        [sql appendString:@"WHERE "];
+        [sql appendString:LKSQL_WHERE@" "];
         [sql appendString:conditionQuery];
     }
     
     if(self.groupByList.count > 0){
-        [sql appendString:@" GROUP BY "];
+        [sql appendString:@" "LKSQL_GROUP_BY@" "];
         [sql appendString:[self.groupByList componentsJoinedByString:@","]];
     }
     
     if(self.orderByList.count > 0){
-        [sql appendString:@" ORDER BY "];
+        [sql appendString:@" "LKSQL_ORDER_BY@" "];
         [sql appendString:[self.orderByList componentsJoinedByString:@","]];
     }
     
     if (self.mLimit > 0) {
-        [sql appendFormat:@" LIMIT %ld OFFSET %ld", (long)self.mLimit, (long)self.mOffset];
+        [sql appendFormat:@" "LKSQL_LIMIT@" %ld "LKSQL_OFFSET@" %ld", (long)self.mLimit, (long)self.mOffset];
     } else if (self.mOffset > 0) {
-        [sql appendFormat:@" LIMIT %d OFFSET %ld", INT_MAX, (long)self.mOffset];
+        [sql appendFormat:@" "LKSQL_LIMIT@" %d "LKSQL_OFFSET@" %ld", INT_MAX, (long)self.mOffset];
     }
     
-    return [sql lowercaseString]; //workaround: LKDB require lowerCased SQL keywork
+    return sql;
 }
 
 @end

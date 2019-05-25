@@ -1,5 +1,6 @@
 
 
+#import "LKDBSQLConstant.h"
 #import "LKSQLDelete.h"
 #import "LKSQLCompositeCondition.h"
 #import <LKDBHelper.h>
@@ -33,16 +34,16 @@
 // MARK: SQL translate
 - (NSString *)toString{
     NSMutableString *sql = [NSMutableString string];
-    [sql appendString:@"DELETE FROM "];
+    [sql appendString:LKSQL_DELETE@" "LKSQL_FROM@" "];
     [sql appendString:[self.tblClass getTableName]];
     
     NSString *conditionQuery = [self.conditionGroup toString];
     if(self.conditionGroup && conditionQuery.length > 0){
-        [sql appendString:@" WHERE "];
+        [sql appendString:@" "LKSQL_WHERE@" "];
         [sql appendString:conditionQuery];
     }
     
-    return [sql lowercaseString]; //workaround: LKDB require lowerCased SQL keywork
+    return sql;
 }
 
 @end

@@ -1,20 +1,7 @@
  
 
+#import "LKDBSQLConstant.h"
 #import "LKSQLCondition.h"
-
-NSString* const LKDB_OP_Eq    = @"=";
-NSString* const LKDB_OP_Neq   = @"<>";
-NSString* const LKDB_OP_Lt    = @"<";
-NSString* const LKDB_OP_Gt    = @">";
-NSString* const LKDB_OP_Lte   = @"<=";
-NSString* const LKDB_OP_Gte   = @">=";
-NSString* const LKDB_OP_IsNot = @"IS NOT";
-NSString* const LKDB_OP_LIKE  = @"LIKE";
-NSString* const LKDB_OP_IN    = @"IN";
-
-NSString* const LKDB_OP_AND   = @"AND";
-NSString* const LKDB_OP_OR    = @"OR";
-
 
 @interface LKSQLCondition()
 @property (nonatomic, copy) NSString * name;
@@ -58,7 +45,7 @@ NSString* const LKDB_OP_OR    = @"OR";
 
 - (NSString *)toString {
     // interal space padding is necessary for some operator: 'IN' 'LIKE' 'IS NOT'
-    return [NSString stringWithFormat:@"%@ %@ %@", _name, _operation, _value?:@"null"];
+    return [NSString stringWithFormat:@"%@ %@ %@", _name, _operation, _value?: LKSQL_NULL];
 }
 
 - (BOOL)hasConnector{

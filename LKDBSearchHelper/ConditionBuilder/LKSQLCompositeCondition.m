@@ -1,5 +1,6 @@
 
 
+#import "LKDBSQLConstant.h"
 #import "LKSQLCompositeCondition.h"
 #import "LKSQLCondition.h"
 
@@ -15,7 +16,6 @@
 - (void)connect:(NSString *)connector sqlCondition:(LKSQLCondition *)sqlCondition;
 - (void)setPreviousConnector:(NSString *)connector;
 - (NSString *)getQuery;
-//- (void)appendConditionToQuery:(LKDBStringBuilder * )queryBuilder; // TODO: optm string alloc
 
 @end
 
@@ -36,7 +36,7 @@
     return [LKSQLCompositeCondition new];
 }
 
-// MARK:- SQL criteria Chaining
+// MARK:- SQL operator Chaining
 - (LKSQLCompositeCondition *)where {return self;}
 
 - (LKSQLCompositeCondition *)or
@@ -182,7 +182,7 @@
         // 1. add condition
         if ([condition isKindOfClass:[LKSQLCompositeCondition class]]) {
             LKSQLCompositeCondition *innerConditionGroup = (LKSQLCompositeCondition *)condition;
-            NSString *innerQuery = [innerConditionGroup getQuery]; // string alloc optm
+            NSString *innerQuery = [innerConditionGroup getQuery];
             // fault tolerant
             if(0 == innerQuery.length){
                 innerQuery = @"1=1";
@@ -191,7 +191,7 @@
             [_query append:innerQuery];
             [_query append:@")" ];
         }else{
-            [_query append:condition.toString]; // string alloc optm
+            [_query append:condition.toString];
         }
         
         // 2. add connector
@@ -207,7 +207,7 @@
         
         count++;
     }
-    return _query ? [_query toString].lowercaseString : @""; //workaround: LKDB require lowerCased SQL keywork
+    return _query ? [_query toString] : @"";
 }
 
 @end
