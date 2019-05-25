@@ -53,9 +53,9 @@
     .or.inNums(@"colJ", nil);
 
     // Too Long? Let's use some eye candy
-    #define _SQLWhere LKSQLCompositeCondition.clause
-    #define _SQLSelect LKSQLSelect.clause
-    #define _SQLDelete LKSQLDelete.clause
+    #define _SQLWhere           LKSQLCompositeCondition.clause
+    #define _SQLSelect(_arg_)   LKSQLSelect.clause.from(_arg_.class)
+    #define _SQLDelete(_arg_)   LKSQLDelete.clause.from(_arg_.class)
 
     // Note that `.where` is a candy, it just return `self`. so we omitted it in the macro above to save a method calling
 
@@ -94,21 +94,25 @@
 
 ```objective-c
     // SQL: Select
-    // exec SQL using `LKDBHelper` according to the class passed in `from()`, 
+    // exec SQL using `LKDBHelper` according to the class passed in, 
     // which in this case, would be `LKTest` 
-    _SQLSelect.from(LKTest.class).where(
+    _SQLSelect(LKTest).where(
         _SQLWhere.eq(@"MyAge", @"16")
     ).orderBy(nil).groupBy(nil).limit(0).offset(0).exec();
 
 
     // BTW, you can specify `LKDBHelper` if `exec()` not fitting your project scheme
-    _SQLSelect.from(LKTest.class).where(
+    _SQLSelect(LKTest).where(
       _SQLWhere.eq(@"MyAge", @"16")
       ).orderBy(nil).groupBy(nil).limit(0).offset(0).execIn(_get_using_LKDBHelper_from_somewhere_);
 
+    // Here, orderBy, groupBy should be RAW SQL format
+
+
+
 
     // SQL: Delete
-    _SQLDelete.from(LKTest.class).where(
+    _SQLDelete(LKTest).where(
         _SQLWhere.eq(@"MyAge", @"16")
     ).exec();
 
@@ -141,3 +145,7 @@ Also, you can use `FMDatabase+Debug.h` in the DEMO project which intercepting FM
     [transaction execute]; // handle marked object above in transaction
 ```
     
+#### #Co-op with LKDB
+
+LKDB requires raw SQL should be lowerCase, you could do that by flip the macro flag `SQL_KEYWORD_UPPERCASE` in `LKDBSQLConstant.h`
+Also, you could see some convenience macro there, but use with caution though (it may cause problem for Xcode auto-indent / auto-complete, and somehow tricky :)
